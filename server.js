@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config(); // 从 .env 文件读取环境变量
 
+const path = require('path'); // ✅ 新增
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -44,4 +46,20 @@ app.post('/api/join', async (req, res) => {
 // 启动服务器
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
+
+// POST 路由
+app.post('/api/join', async (req, res) => {
+  try {
+    const newUser = new Waitlist(req.body);
+    await newUser.save();
+    res.status(200).json({ message: 'Success' });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to save' });
+  }
+});
+
+// ✅ 新增 GET 路由
+app.get('/joinnow', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'joinnow.html'));
 });
