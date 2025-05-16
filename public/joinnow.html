@@ -541,6 +541,8 @@
   });
 
   // ===== 表单提交逻辑 =====
+  const urlParams = new URLSearchParams(window.location.search);
+  const ref = urlParams.get('ref') || 'direct';  // 默认为 direct
   const form = document.getElementById('join-form');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -549,6 +551,7 @@
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
+      ref: ref
     };
 
     try {

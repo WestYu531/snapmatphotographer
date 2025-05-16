@@ -9,6 +9,18 @@ const path = require('path'); // ✅ 新增
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+// 邮件传输器配置
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -27,35 +39,46 @@ const WaitlistSchema = new mongoose.Schema({
   name: String,
   email: String,
   phone: String,
+  ref: String,
   createdAt: { type: Date, default: Date.now }
 });
 
 const Waitlist = mongoose.model('Waitlist', WaitlistSchema);
 
-// POST 路由
-app.post('/api/join', async (req, res) => {
-  try {
-    const newUser = new Waitlist(req.body);
-    await newUser.save();
-    res.status(200).json({ message: 'Success' });
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to save' });
-  }
-});
 
 // 启动服务器
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 
-// POST 路由
 app.post('/api/join', async (req, res) => {
   try {
-    const newUser = new Waitlist(req.body);
+    const { name, email, phone, ref } = req.body;
+
+    // 存入数据库
+    const newUser = new Waitlist({ name, email, phone, ref });
     await newUser.save();
+
+    // 发送邮件
+    /*
+    await transporter.sendMail({
+      from: `"SnapMate Team" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: 'Welcome to SnapMate 📸',
+      html: `
+        <h2>Hi ${name},</h2>
+        <p>Thank you for joining SnapMate! We're excited to have you on board.</p>
+        <p>We’ll notify you when registration officially opens.</p>
+        <br>
+        <p>— The SnapMate Team</p>
+      `,
+    });
+    */
+
     res.status(200).json({ message: 'Success' });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to save' });
+    console.error('❌ Error during registration or email:', err);
+    res.status(500).json({ message: 'Failed to save or send email' });
   }
 });
 
