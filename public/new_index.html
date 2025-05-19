@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" class="w-full overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapMate - Professional Photographer Matching Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Modern font combination -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon library -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* 添加平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 添加过渡效果 */
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: white;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 32rem;
+            width: 90%;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+        body.modal-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 w-full overflow-x-hidden">
+    <!-- Navigation bar with glass effect -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <img src="https://i.postimg.cc/jjdfktHn/temp-Image-Ld-ABip.avif" alt="SnapMate Logo" class="h-12 w-auto">
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <button id="need-btn" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all">
+                        <i class="ri-camera-line mr-2"></i>I NEED PHOTOGRAPHER
+                    </button>
+                    <a href="/joinnow" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all inline-flex items-center">
+                        <i class="ri-user-star-line mr-2"></i>I AM PHOTOGRAPHER
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <button data-open-modal class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all">
+                        <i class="ri-user-add-line mr-2"></i>Join Waitlist
+                    </button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-600">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                    I Need Photographer
+                </button>
+                <a href="/joinnow" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                    I Am Photographer
+                </a>
+                <button data-open-modal class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                    Join Waitlist
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="pt-16 w-full overflow-x-hidden">
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-r from-orange-50 to-orange-100 py-32 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h1 class="hero-title text-5xl font-bold text-gray-900 mb-6">
+                            Don't Let Moments Slip Away—
+                            <span class="text-orange-500">Capture</span> Them with SnapMate
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8">
+                            Book your personal photographer at an affordable price.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button data-open-modal class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg transition-all text-lg inline-flex items-center justify-center">
+                                <i class="ri-user-add-line mr-2"></i>
+                                Join Waitlist
+                            </button>
+                            <button class="border-2 border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-4 rounded-lg transition-all text-lg inline-flex items-center justify-center">
+                                <i class="ri-information-line mr-2"></i>
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <!-- Main Image -->
+                        <img src="https://i.postimg.cc/W3TGV0cz/temp-Image7lv-Wis.avif" alt="Photography" 
+                             class="rounded-2xl shadow-2xl w-full object-cover">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Decorative Elements -->
+            <div class="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-orange-200 rounded-full opacity-20 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 transform -translate-x-1/2 translate-y-1/2 w-96 h-96 bg-orange-300 rounded-full opacity-10 blur-3xl"></div>
+        </section>
+
+        <!-- Photography Scenarios Section -->
+        <section class="py-20 bg-gray-50 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">Book Your Personal Photographer</h2>
+                    <p class="text-xl text-gray-600">At an affordable price for any occasion</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Parties -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800" alt="Parties" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-4 w-full">
+                                <h3 class="text-white text-xl font-semibold">Parties</h3>
+                                <p class="text-gray-200 text-sm">Capture the joy and excitement</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sports & Games -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800" alt="Sports" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-4 w-full">
+                                <h3 class="text-white text-xl font-semibold">Sports & Games</h3>
+                                <p class="text-gray-200 text-sm">Freeze the action</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graduation -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800" alt="Graduation" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-4 w-full">
+                                <h3 class="text-white text-xl font-semibold">Graduation</h3>
+                                <p class="text-gray-200 text-sm">Celebrate your achievement</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vlogging -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=800" alt="Vlogging" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-4 w-full">
+                                <h3 class="text-white text-xl font-semibold">Vlogging</h3>
+                                <p class="text-gray-200 text-sm">Create engaging content</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Travel -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800" alt="Travel" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-4 w-full">
+                                <h3 class="text-white text-xl font-semibold">Travel</h3>
+                                <p class="text-gray-200 text-sm">Document your adventures</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Everyday Life -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1516475429286-465d815a0df7?w=800" alt="Everyday Life" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-4 w-full">
+                                <h3 class="text-white text-xl font-semibold">Everyday Life</h3>
+                                <p class="text-gray-200 text-sm">Make ordinary moments special</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Headshots -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800" alt="Business Headshots" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-4 w-full">
+                                <h3 class="text-white text-xl font-semibold">Business Headshots</h3>
+                                <p class="text-gray-200 text-sm">Professional portraits</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book Now CTA -->
+                    <div class="group relative overflow-hidden rounded-xl cursor-pointer bg-orange-500 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <h3 class="text-white text-2xl font-bold mb-2">Start Booking</h3>
+                            <p class="text-white/90 mb-4">Find your perfect photographer today</p>
+                            <button data-open-modal class="bg-white text-orange-500 px-6 py-2 rounded-lg font-semibold hover:bg-orange-50 transition-colors">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section (Why SnapMate?) -->
+        <section class="py-20 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-4">Why SnapMate?</h2>
+                <p class="text-xl text-gray-600 text-center mb-12">Your perfect photographer is just a click away</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pricing Feature -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                        <div class="text-orange-500 text-4xl mb-4">
+                            <i class="ri-money-dollar-circle-fill"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Affordable & Flexible</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">Affordable rates for everyday shoots</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">Pay hourly or only for photos you love</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">No hidden fees or surprises</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Photographers Feature -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                        <div class="text-orange-500 text-4xl mb-4">
+                            <i class="ri-camera-lens-fill"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Real Photographers</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">Real photographers—no overpriced studio packages</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">Choose by style, gear, or vibe</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">No gatekeeping. Just good photos.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Equipment Feature -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                        <div class="text-orange-500 text-4xl mb-4">
+                            <i class="ri-camera-fill"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Diverse Equipment</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">Digital cameras for quick turnaround</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">Film & instant cameras for unique styles</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-check-line text-orange-500 mt-1 mr-2"></i>
+                                <p class="text-gray-600">Drone cameras for aerial photography</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Additional Value Proposition -->
+                <div class="mt-12 bg-orange-50 p-8 rounded-xl text-center">
+                    <p class="text-xl text-gray-700">
+                        "At SnapMate, we believe great photography should be accessible to everyone. 
+                        No complicated packages, no hidden fees—just connect with talented photographers and capture your moments."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="py-20 bg-white w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-16">How SnapMate Works</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Step 1: Search -->
+                    <div class="relative">
+                        <!-- Step number -->
+                        <div class="absolute -top-6 -left-6 bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            1
+                        </div>
+                        <!-- Content -->
+                        <div class="bg-orange-50 rounded-xl p-8 h-full hover:shadow-xl transition-all">
+                            <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                                <i class="ri-search-line text-3xl text-orange-500"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4">Search</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Find the right photographer based on your occasion, style, and preferred equipment. Whether it's solo travel, events, portraits, or content creation—SnapMate offers photographers with digital cameras, film gear, and drones to match your needs.
+                            </p>
+                            <div class="mt-6 flex flex-wrap gap-2">
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Solo Travel</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Events</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Portraits</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Content</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Browse -->
+                    <div class="relative">
+                        <!-- Step number -->
+                        <div class="absolute -top-6 -left-6 bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            2
+                        </div>
+                        <!-- Content -->
+                        <div class="bg-orange-50 rounded-xl p-8 h-full hover:shadow-xl transition-all">
+                            <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                                <i class="ri-user-search-line text-3xl text-orange-500"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4">Browse Photographer Profiles</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Explore a curated list of amateur photographers. View their portfolios, camera types, styles, pricing, and real reviews to find the perfect fit for your vision.
+                            </p>
+                            <div class="mt-6 flex flex-wrap gap-2">
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Portfolio</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Reviews</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Pricing</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Styles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Book & Chat -->
+                    <div class="relative">
+                        <!-- Step number -->
+                        <div class="absolute -top-6 -left-6 bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            3
+                        </div>
+                        <!-- Content -->
+                        <div class="bg-orange-50 rounded-xl p-8 h-full hover:shadow-xl transition-all">
+                            <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                                <i class="ri-chat-smile-3-line text-3xl text-orange-500"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold mb-4">Book & Chat</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Easily book your photographer and use our built-in chat to coordinate details, share your vision, and get ready for your shoot.
+                            </p>
+                            <div class="mt-6 flex flex-wrap gap-2">
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Easy Booking</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Direct Chat</span>
+                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Coordination</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action button -->
+                <div class="text-center mt-12">
+                    <button data-open-modal class="bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-all text-lg inline-flex items-center">
+                        <i class="ri-camera-line mr-2"></i>
+                        Find Your Photographer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-20 bg-gray-50 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12">What Our Users Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img src="https://i.postimg.cc/15GNmfMN/temp-Imagen-Ssc-Mt.avif" alt="User" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-semibold">Sarah Johnson</h4>
+                                <p class="text-gray-500">Wedding Client</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"Finding our wedding photographer through SnapMate was incredibly easy. The platform helped us find exactly what we were looking for within our budget."</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img src="https://i.postimg.cc/CxwnzS6r/temp-Imagei9-Ftje.avif" alt="User" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-semibold">Michael Chen</h4>
+                                <p class="text-gray-500">Professional Photographer</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"As a photographer, SnapMate has helped me grow my business and connect with amazing clients. The platform is user-friendly and professional."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="bg-gray-900 py-20 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-white mb-8">Don't Miss Out on the Future of Photography</h2>
+                <p class="text-xl text-gray-300 mb-8">Be among the first to experience a new way of connecting with photographers.</p>
+                <button data-open-modal class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg transition-all text-lg font-semibold inline-flex items-center justify-center">
+                    <i class="ri-user-add-line mr-2"></i>
+                    Join Waitlist Now
+                </button>
+                <p class="text-center text-gray-400 mt-4">
+                    🤝 Join our growing community of photographers and clients
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-20 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About Us</h3>
+                    <p class="text-gray-400">SnapMate connects photographers with clients, creating a professional photography service platform.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Find Photographer</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Become Photographer</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Services</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li><i class="ri-mail-line mr-2"></i>support@snapmate.com</li>
+                        <li><i class="ri-phone-line mr-2"></i>400-123-4567</li>
+                        <li><i class="ri-map-pin-line mr-2"></i>Seattle, WA</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="ri-facebook-fill text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="ri-twitter-fill text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="ri-instagram-fill text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="ri-linkedin-fill text-2xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 SnapMate. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-orange-500 text-white p-3 rounded-full shadow-lg hidden hover:bg-orange-600 transition-all">
+        <i class="ri-arrow-up-line text-xl"></i>
+    </button>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlist-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Join the Waitlist</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+            <form id="waitlist-form" class="space-y-4">
+                <input type="text" placeholder="User Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200">
+                <input type="email" placeholder="Email Address" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200">
+                <input type="tel" placeholder="Phone Number" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200">
+                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg transition-all text-lg font-semibold flex items-center justify-center">
+                    <i class="ri-user-add-line mr-2"></i>
+                    Join Waitlist
+                </button>
+                <p class="text-center text-sm text-gray-500">
+                    🤝 Join our growing community of photographers and clients
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 100) {
+                backToTop.classList.remove('hidden');
+            } else {
+                backToTop.classList.add('hidden');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Modal functionality
+        function openModal() {
+            document.getElementById('waitlist-modal').classList.add('show');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModal() {
+            document.getElementById('waitlist-modal').classList.remove('show');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('waitlist-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Update all waitlist buttons to open modal
+        document.querySelectorAll('[data-open-modal]').forEach(button => {
+            button.addEventListener('click', openModal);
+        });
+
+        // Form submission with validation
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic form validation
+            const name = this.querySelector('input[placeholder="User Name"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const phone = this.querySelector('input[type="tel"]').value;
+
+            if (!name || !email || !phone) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            if (!email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Send data to server
+            fetch('/api/user/join', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    phone,
+                    ref: 'website'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Success') {
+                    alert('Thanks for joining the waitlist! We\'ll be in touch soon.');
+                    closeModal();
+                    this.reset();
+                } else {
+                    throw new Error(data.message || 'Something went wrong');
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
+
+        // Navigation buttons functionality
+        document.getElementById('need-btn').addEventListener('click', function() {
+            openModal();
+        });
+
+        document.getElementById('am-btn').addEventListener('click', function() {
+            openModal();
+        });
+
+        // Learn More button scroll functionality
+        Array.from(document.getElementsByTagName('button')).forEach(button => {
+            if (button.textContent.trim() === 'Learn More') {
+                button.addEventListener('click', function() {
+                    document.querySelector('#features').scrollIntoView({behavior: 'smooth'});
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

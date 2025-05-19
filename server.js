@@ -45,6 +45,16 @@ const WaitlistSchema = new mongoose.Schema({
 
 const Waitlist = mongoose.model('Waitlist', WaitlistSchema);
 
+// 用户等待列表Schema
+const UserWaitlistSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  phone: { type: String, required: true },
+  ref: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+const UserWaitlist = mongoose.model('UserWaitlist', UserWaitlistSchema);
 
 // 启动服务器
 app.listen(PORT, () => {
@@ -68,7 +78,7 @@ app.post('/api/join', async (req, res) => {
       html: `
         <h2>Hi ${name},</h2>
         <p>Thank you for joining SnapMate! We're excited to have you on board.</p>
-        <p>We’ll notify you when registration officially opens.</p>
+        <p>We'll notify you when registration officially opens.</p>
         <br>
         <p>— The SnapMate Team</p>
       `,
@@ -82,7 +92,59 @@ app.post('/api/join', async (req, res) => {
   }
 });
 
+// 添加用户等待列表API
+app.post('/api/user/join', async (req, res) => {
+  try {
+    const { name, email, phone, ref } = req.body;
+
+    // 验证必填字段
+    if (!name || !email || !phone) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    // 验证邮箱格式
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
+
+    // 检查邮箱是否已存在
+    const existingUser = await UserWaitlist.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already registered' });
+    }
+
+    // 存入数据库
+    const newUser = new UserWaitlist({ name, email, phone, ref });
+    await newUser.save();
+
+    res.status(200).json({ message: 'Success' });
+  } catch (err) {
+    console.error('❌ Error during user registration:', err);
+    res.status(500).json({ message: 'Failed to save' });
+  }
+});
+
+// 获取用户等待列表API（可选，用于管理后台）
+app.get('/api/user/waitlist', async (req, res) => {
+  try {
+    const users = await UserWaitlist.find({})
+      .sort({ createdAt: -1 })
+      .select('name email phone createdAt');
+    
+    res.status(200).json(users);
+  } catch (err) {
+    console.error('❌ Error fetching waitlist:', err);
+    res.status(500).json({ message: 'Failed to fetch waitlist' });
+  }
+});
+
 // ✅ 新增 GET 路由
 app.get('/joinnow', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'joinnow.html'));
+});
+
+// 添加根路由
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'new_index.html'));
 });
