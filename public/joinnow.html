@@ -18,19 +18,46 @@
 
 
   <!-- 导航栏 -->
-  <nav class="bg-white shadow-md p-4 flex justify-between items-center">
-    <div>
-        <img src="https://i.postimg.cc/jjdfktHn/temp-Image-Ld-ABip.avif" alt="SnapMate Logo" class="h-16 w-auto">
+  <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md shadow-sm z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex-shrink-0">
+          <img src="https://i.postimg.cc/SKDpkNdH/logo.png" alt="SnapMate Logo" class="h-12 w-auto">
+        </div>
+        <div class="hidden md:flex space-x-4">
+          <a href="/" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all inline-flex items-center">
+            <i class="ri-camera-line mr-2"></i>I NEED PHOTOGRAPHER
+          </a>
+          <a href="/joinnow" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all inline-flex items-center">
+            <i class="ri-user-star-line mr-2"></i>I AM PHOTOGRAPHER
+          </a>
+        </div>
+        <div class="hidden md:flex space-x-4">
+          <button onclick="toggleModal()" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="ri-user-add-line mr-2"></i>Join Waitlist
+          </button>
+        </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-600">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="flex space-x-4">
-      <a href="/" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg transition-all text-lg font-semibold inline-flex items-center">
-        <i class="ri-camera-line mr-2"></i>
-        I NEED PHOTOGRAPHER
-      </a>
-      <a href="/joinnow" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg transition-all text-lg font-semibold inline-flex items-center">
-        <i class="ri-user-star-line mr-2"></i>
-        I AM PHOTOGRAPHER
-      </a>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="/" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+          I Need Photographer
+        </a>
+        <a href="/joinnow" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+          I Am Photographer
+        </a>
+        <button onclick="toggleModal()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+          Join Waitlist
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -590,6 +617,15 @@
     setTimeout(() => {
       toast.classList.add('hidden');
     }, 10000);
+  }
+
+  // 响应式移动菜单逻辑
+  const mobileMenuBtn = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+    });
   }
 </script>
 
