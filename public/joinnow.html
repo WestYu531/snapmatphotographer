@@ -12,6 +12,10 @@
   <script>AOS.init();</script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    html, body { overflow-x: hidden; width: 100%; }
+  </style>
 </head>
 
 <body class="bg-orange-50 text-gray-900">
@@ -64,31 +68,31 @@
 
 <!-- 首页 -->
 <section
-  class="text-center py-36 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat"
+  class="text-center py-20 sm:py-36 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat overflow-x-hidden"
   style="background-image: url('https://i.postimg.cc/pXrxVFQn/tim-mossholder-YAew-FXov-k-unsplash.jpg');"
 >
   <div class="max-w-screen-md mx-auto">
     <h1
-      class="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold-inter leading-snug sm:leading-tight mb-6 break-words"
+      class="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold-inter leading-snug sm:leading-tight mb-4 sm:mb-6 break-words"
       style="font-family: 'Inter', sans-serif;"
     >
       Build Your Photography Portfolio for Free
     </h1>
 
     <h2
-      class="text-white text-2xl sm:text-3xl md:text-4xl font-bold-inter mb-10"
+      class="text-white text-xl sm:text-3xl md:text-4xl font-bold-inter mb-6 sm:mb-10"
       style="font-family: 'Inter', sans-serif;"
     >
       Start Earning with <span class="text-orange-500">SnapMate</span>
     </h2>
 
     <button
-     onclick="toggleModal()" class="bg-orange-500 hover:bg-orange-600 text-white text-lg sm:text-xl px-10 sm:px-12 py-4 sm:py-5 rounded-full font-semibold"
+     onclick="toggleModal()" class="bg-orange-500 hover:bg-orange-600 text-white text-base sm:text-xl px-8 sm:px-12 py-3 sm:py-5 rounded-full font-semibold"
     >
       Join Now
     </button>
 
-    <p class="mt-6 text-white text-base sm:text-lg">
+    <p class="mt-4 sm:mt-6 text-white text-sm sm:text-lg">
       Join our waitlist for beta access!
     </p>
   </div>
@@ -96,69 +100,64 @@
 
 
 <!-- Why Become a SnapMate Photographer Section 改 -->
-<section class="py-20 bg-white">
-  <div class="text-center mb-10" data-aos="fade-up">
-    <h2 style="font-family: 'Inter', sans-serif;" class="text-5xl font-bold-inter text-[#1F323B]">Why Become a <span class="text-orange-500">SnapMate</span> Photographer?</h2>
+<section class="py-12 sm:py-20 bg-white">
+  <div class="text-center mb-8 sm:mb-10 px-4" data-aos="fade-up">
+    <h2 style="font-family: 'Inter', sans-serif;" class="text-3xl sm:text-5xl font-bold-inter text-[#1F323B]">Why Become a <span class="text-orange-500">SnapMate</span> Photographer?</h2>
   </div>
-
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto px-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto px-4 sm:px-6">
     <!-- 卡片 1 -->
-    <div class="flex items-center gap-4 p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
+    <div class="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
          data-aos="fade-up" data-aos-delay="0">
-      <div class="w-12 h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-xl font-bold">
+      <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-lg sm:text-xl font-bold">
         ✔
       </div>
-      <p class="text-gray-800 font-medium text-base">Flexible Working Hours</p>
+      <p class="text-gray-800 font-medium text-sm sm:text-base">Flexible Working Hours</p>
     </div>
-
     <!-- 卡片 2 -->
-    <div class="flex items-center gap-4 p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
+    <div class="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
          data-aos="fade-up" data-aos-delay="100">
-      <div class="w-12 h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-xl font-bold">
+      <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-lg sm:text-xl font-bold">
         ✔
       </div>
-      <p class="text-gray-800 font-medium text-base">Exposure to Real Clients</p>
+      <p class="text-gray-800 font-medium text-sm sm:text-base">Exposure to Real Clients</p>
     </div>
-
     <!-- 卡片 3 -->
-    <div class="flex items-center gap-4 p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
+    <div class="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
          data-aos="fade-up" data-aos-delay="200">
-      <div class="w-12 h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-xl font-bold">
+      <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-lg sm:text-xl font-bold">
         ✔
       </div>
-      <p class="text-gray-800 font-medium text-base">Build Your Photography Portfolio for Free</p>
+      <p class="text-gray-800 font-medium text-sm sm:text-base">Build Your Photography Portfolio for Free</p>
     </div>
-
     <!-- 卡片 4 -->
-    <div class="flex items-center gap-4 p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
+    <div class="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition"
          data-aos="fade-up" data-aos-delay="300">
-      <div class="w-12 h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-xl font-bold">
+      <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 text-green-600 flex items-center justify-center rounded-full text-lg sm:text-xl font-bold">
         ✔
       </div>
-      <p class="text-gray-800 font-medium text-base">Earn Money Doing What You Love</p>
+      <p class="text-gray-800 font-medium text-sm sm:text-base">Earn Money Doing What You Love</p>
     </div>
   </div>
 </section>
 
 <!-- 滑块部分 -->
-<section style="font-family: 'Inter', sans-serif;" class="py-16 bg-white">
-  <div class="max-w-4xl mx-auto px-6 text-center" data-aos="fade-up">
-    <p class="text-5xl text-[#1F323B] font-bold-inter mb-4">
+<section style="font-family: 'Inter', sans-serif;" class="py-10 sm:py-16 bg-white overflow-x-hidden">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center" data-aos="fade-up">
+    <p class="text-3xl sm:text-5xl text-[#1F323B] font-bold-inter mb-4">
       You could earn 
-      <span id="earn-value" class="font-bold text-7xl text-orange-500">$300</span>
-      <span class="font-bold text-7xl text-orange-500">/month</span><br>
+      <span id="earn-value" class="font-bold text-5xl sm:text-7xl text-orange-500">$300</span>
+      <span class="font-bold text-5xl sm:text-7xl text-orange-500">/month</span><br>
       in your free time!
     </p>
 
     <div class="mb-6">
-      <label for="hours-slider" class="block mb-2 text-[#1F323B]">
+      <label for="hours-slider" class="block mb-2 text-[#1F323B] text-sm sm:text-base">
         Based on working <span id="hours-value" class="font-semibold">24</span> hours/month ($50/hour)
       </label>
       <input id="hours-slider" type="range" min="1" max="160" value="24" step="1" class="w-full h-2 bg-orange-200 rounded-lg appearance-none cursor-pointer">
     </div>
 
-    <p class="mt-10 text-lg text-[#1F323B]">
+    <p class="mt-6 sm:mt-10 text-base sm:text-lg text-[#1F323B]">
       SnapMate is built for <span class="font-semibold">photography enthusiasts of all levels</span>, whether you shoot with a smartphone, DSLR, film, or instant camera.
       We believe in <span class="font-bold">your skill—not your gear.</span>
     </p>
@@ -166,30 +165,30 @@
 </section>
 
 <!-- paying models-->
-<section class="pt-4 pb-16 bg-white">
-  <div class="max-w-5xl mx-auto px-6">
+<section class="pt-4 pb-12 sm:pb-16 bg-white overflow-x-hidden">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
     <!-- 标题部分 -->
-    <h2 style="font-family: 'Inter', sans-serif;" class="text-6xl font-semibold-inter text-[#1F323B] text-center mb-6">Earning Models – You Choose</h2>
-    <p style="font-family: 'Inter', sans-serif;" class="text-center text-lg text-[#1F323B] mb-12 max-w-2xl mx-auto">
+    <h2 style="font-family: 'Inter', sans-serif;" class="text-4xl sm:text-6xl font-semibold-inter text-[#1F323B] text-center mb-4 sm:mb-6">Earning Models – You Choose</h2>
+    <p style="font-family: 'Inter', sans-serif;" class="text-center text-base sm:text-lg text-[#1F323B] mb-8 sm:mb-12 max-w-2xl mx-auto">
       You can offer one or both models—your profile shows your availability and pricing.
     </p>
 
     <!-- 模型分列部分 -->
-    <div style="font-family: 'Inter', sans-serif;" class="grid md:grid-cols-2 gap-10">
+    <div style="font-family: 'Inter', sans-serif;" class="grid md:grid-cols-2 gap-6 sm:gap-10">
       <!-- 模式 1：Hourly Rate -->
-      <div class="border border-orange-200 p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="100">
-        <h3 class="text-xl font-semibold-inter text-orange-500 mb-4">Hourly Rate Model</h3>
-        <p class="text-lg text-[#1F323B]">
+      <div class="border border-orange-200 p-4 sm:p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="text-lg sm:text-xl font-semibold-inter text-orange-500 mb-3 sm:mb-4">Hourly Rate Model</h3>
+        <p class="text-base sm:text-lg text-[#1F323B]">
           Set your own rate or use our smart suggestions based on your gear and experience.
           Offer bundle deals to boost bookings (e.g., <span class="font-semibold">3 hours for $110</span>).
         </p>
       </div>
 
       <!-- 模式 2：Pay-Per-Photo -->
-      <div class="border border-orange-200 p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="200">
-        <h3 class="text-xl font-semibold-inter text-orange-500 mb-4">Pay-Per-Photo Model</h3>
-        <p class="text-lg text-[#1F323B] mb-2">Clients pay only for the photos they love:</p>
-        <ul class="list-disc pl-5 text-[#1F323B] space-y-2">
+      <div class="border border-orange-200 p-4 sm:p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="200">
+        <h3 class="text-lg sm:text-xl font-semibold-inter text-orange-500 mb-3 sm:mb-4">Pay-Per-Photo Model</h3>
+        <p class="text-base sm:text-lg text-[#1F323B] mb-2">Clients pay only for the photos they love:</p>
+        <ul class="list-disc pl-5 text-[#1F323B] space-y-1 sm:space-y-2 text-sm sm:text-base">
           <li><strong>Base Fee:</strong> $30/session</li>
           <li><strong>Tier 1:</strong> $5/photo (10+ waives fee; 15+ drops to $4/photo)</li>
           <li><strong>Tier 2:</strong> $10/photo (5+ waives fee; 15+ drops to $8/photo)</li>
@@ -205,248 +204,219 @@
   
 
 <!-- Three-Step Process -->
-<section style="font-family: 'Inter', sans-serif;" class="pt-6 pb-2 bg-white relative">
-  <h1 style="font-family: 'Inter', sans-serif;" class=" mt-10 text-6xl text-[#1F323B] text-center md:text-6xl font-extrabold-inter leading-relaxed tracking-wide">
+<section style="font-family: 'Inter', sans-serif;" class="pt-6 pb-2 bg-white relative overflow-x-hidden">
+  <h1 style="font-family: 'Inter', sans-serif;" class="mt-8 sm:mt-10 text-4xl sm:text-6xl text-[#1F323B] text-center font-extrabold-inter leading-relaxed tracking-wide">
     How it works
   </h1>
-  <div class="mt-10 max-w-5xl mx-auto px-4 relative">
-    <!-- 中轴线 -->
-    <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-orange-500 -translate-x-1/2 z-0"></div>
+  <div class="mt-8 sm:mt-10 max-w-5xl mx-auto px-4 relative">
+    <!-- 中轴线（仅桌面显示） -->
+    <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-orange-500 -translate-x-1/2 z-0 hidden md:block"></div>
 
     <!-- Step 1 -->
-    <div class="relative mb-20 flex items-center">
-      <!-- 左侧文字 -->
-      <div class="w-1/2 pr-8 text-right" data-aos="fade-right">
-        <h3 class="text-2xl font-bold-inter text-[#1F323B]">Sign Up</h3>
-        <p class="text-lg text-gray-600 mt-2">Create your profile in minutes and tell us about your gear and style.</p>
-      </div>
-      <!-- 中间图标 -->
-      <div class="z-10 w-16 h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-xl font-bold text-orange-500 mx-4"
-           data-aos="zoom-in" data-aos-delay="100">
-        1
-      </div>
-      
-      <!-- 右边图片 -->
-      <div class="w-1/2 pl-8 flex justify-center" data-aos="fade-left">
+    <div class="flex flex-col md:flex-row items-center mb-10 md:mb-20">
+      <!-- 移动端：垂直排列 -->
+      <div class="w-full md:w-1/2 flex flex-col items-center md:items-end md:pr-8 text-center md:text-right mb-4 md:mb-0">
+        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-lg sm:text-xl font-bold text-orange-500 mb-3">
+          1
+        </div>
         <img src="https://i.postimg.cc/qBw6F7tJ/image2.png" alt="Step 1 Image"
-             class="w-32 h-32 rounded-full object-cover border-4 border-orange-200 shadow-md" />
+             class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-orange-200 shadow-md mb-3" />
+        <h3 class="text-xl sm:text-2xl font-bold-inter text-[#1F323B]">Sign Up</h3>
+        <p class="text-base sm:text-lg text-gray-600 mt-2">Create your profile in minutes and tell us about your gear and style.</p>
       </div>
+      <!-- 桥接空白（桌面用） -->
+      <div class="hidden md:block w-1/2"></div>
     </div>
 
     <!-- Step 2 -->
-    <div class="relative mb-20 flex items-center">
-
-      <!-- 左边图片 -->
-      <div class="w-1/2 pl-8 flex justify-center" data-aos="fade-left">
-        <img src="https://i.postimg.cc/Gp3SRtLc/image3.png" alt="Step 1 Image"
-             class="w-32 h-32 rounded-full object-cover border-4 border-orange-200 shadow-md" />
+    <div class="flex flex-col md:flex-row-reverse items-center mb-10 md:mb-20">
+      <div class="w-full md:w-1/2 flex flex-col items-center md:items-start md:pl-8 text-center md:text-left mb-4 md:mb-0">
+        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-lg sm:text-xl font-bold text-orange-500 mb-3">
+          2
+        </div>
+        <img src="https://i.postimg.cc/Gp3SRtLc/image3.png" alt="Step 2 Image"
+             class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-orange-200 shadow-md mb-3" />
+        <h3 class="text-xl sm:text-2xl font-bold-inter text-[#1F323B]">Build Portfolio</h3>
+        <p class="text-base sm:text-lg text-gray-600 mt-2">Upload your favorite shots. Show off your personality, not just your camera.</p>
       </div>
-      <!-- 中间图标 -->
-      <div class="z-10 w-16 h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-xl font-bold text-orange-500 mx-4"
-           data-aos="zoom-in" data-aos-delay="200">
-        2
-      </div>
-      <!-- 右侧文字 -->
-      <div class="w-1/2 pl-8 text-left" data-aos="fade-left">
-        <h3 class="text-2xl font-bold-inter text-[#1F323B]">Build Portfolio</h3>
-        <p class="text-lg text-gray-600 mt-2">Upload your favorite shots. Show off your personality, not just your camera.</p>
-      </div>
+      <div class="hidden md:block w-1/2"></div>
     </div>
 
     <!-- Step 3 -->
-    <div class="relative mb-20 flex items-center">
-      <!-- 左侧文字 -->
-      <div class="w-1/2 pr-8 text-right" data-aos="fade-right">
-        <h3 class="text-2xl font-bold-inter text-[#1F323B]">Start Earning</h3>
-        <p class="text-lg text-gray-600 mt-2">Get booked, shoot, deliver photos, and get paid—flexibly and easily.</p>
+    <div class="flex flex-col md:flex-row items-center mb-10 md:mb-20">
+      <div class="w-full md:w-1/2 flex flex-col items-center md:items-end md:pr-8 text-center md:text-right mb-4 md:mb-0">
+        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-lg sm:text-xl font-bold text-orange-500 mb-3">
+          3
+        </div>
+        <img src="https://i.postimg.cc/QN93W4pp/image4.png" alt="Step 3 Image"
+             class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-orange-200 shadow-md mb-3" />
+        <h3 class="text-xl sm:text-2xl font-bold-inter text-[#1F323B]">Start Earning</h3>
+        <p class="text-base sm:text-lg text-gray-600 mt-2">Get booked, shoot, deliver photos, and get paid—flexibly and easily.</p>
       </div>
-      <!-- 中间图标 -->
-      <div class="z-10 w-16 h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-xl font-bold text-orange-500 mx-4"
-           data-aos="zoom-in" data-aos-delay="300">
-        3
-      </div>
-      <!-- 右边图片 -->
-      <div class="w-1/2 pl-8 flex justify-center" data-aos="fade-left">
-        <img src="https://i.postimg.cc/QN93W4pp/image4.png" alt="Step 1 Image"
-             class="w-32 h-32 rounded-full object-cover border-4 border-orange-200 shadow-md" />
-      </div>
+      <div class="hidden md:block w-1/2"></div>
     </div>
 
     <!-- 附加模块：总结性内容 -->
-    <div class="relative mb-20 flex items-center justify-between max-w-5xl mx-auto px-4">
-
-      <!-- 左侧圆形 Join Now 按钮 -->
-      <div class="w-1/2 pl-8 flex justify-center items-center" data-aos="fade-left">
-        <button onclick="toggleModal()" class="w-36 h-36 rounded-full bg-orange-500 hover:bg-orange-600 text-white text-lg font-semibold shadow-md flex items-center justify-center transition duration-300">
+    <div class="flex flex-col md:flex-row items-center justify-between max-w-5xl mx-auto px-4 mb-10 md:mb-20">
+      <div class="w-full md:w-1/2 flex flex-col items-center md:items-start md:pl-8 mb-4 md:mb-0">
+        <button onclick="toggleModal()" class="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-orange-500 hover:bg-orange-600 text-white text-base sm:text-lg font-semibold shadow-md flex items-center justify-center transition duration-300 mb-3">
           Join Now
         </button>
+        <h3 class="text-xl sm:text-2xl font-bold-inter text-[#1F323B]">Join Thousands of Creators</h3>
+        <p class="text-base sm:text-lg text-gray-600 mt-2">SnapMate has helped thousands of photographers turn their passion into profit. You can be next.</p>
       </div>
-
-      <!-- 中间编号（可改成图标） -->
-      <div class="z-10 w-16 h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-xl font-bold text-orange-500 mx-4"
-          data-aos="zoom-in" data-aos-delay="100">
-        📸
-      </div>
-
-      <!-- 右侧文字 -->
-      <div class="w-1/2 pl-8 text-left" data-aos="fade-left">
-        <h3 class="text-2xl font-bold-inter text-[#1F323B]">Join Thousands of Creators</h3>
-        <p class="text-gray-600 mt-2">SnapMate has helped thousands of photographers turn their passion into profit. You can be next.</p>
+      <div class="w-full md:w-auto flex justify-center items-center">
+        <div class="z-10 w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-orange-500 bg-white shadow-lg flex items-center justify-center text-lg sm:text-xl font-bold text-orange-500 mx-4 my-4 md:my-0">
+          📸
+        </div>
       </div>
     </div>
-
   </div>
-
-  
 </section>
 
 <!--portflio 部分-->
-<section class="bg-orange-50 py-16 px-4">
-  <h2 style="font-family: 'Inter', sans-serif;" class="mt-4 text-center text-6xl text-[#1F323B] md:text-6xl font-extrabold-inter leading-relaxed tracking-wide">
+<section class="bg-orange-50 py-12 sm:py-16 px-4 overflow-x-hidden">
+  <h2 style="font-family: 'Inter', sans-serif;" class="mt-4 text-center text-4xl sm:text-6xl text-[#1F323B] font-extrabold-inter leading-relaxed tracking-wide">
     Build Your Portfolio<br><span class="text-orange-500">Totally Free</span>
   </h2>
 
-  <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-
+  <div class="mt-8 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto">
     <!-- Card 1 -->
-    <div class="flex flex-row bg-white rounded-lg shadow-md overflow-hidden"
+    <div class="flex flex-col sm:flex-row bg-white rounded-lg shadow-md overflow-hidden"
          data-aos="fade-right" data-aos-delay="100">
-      <img src="https://i.postimg.cc/Jn4cWRnB/2025-05-04-23-07-00.png" alt="Photographer" class="w-1/2 object-cover">
-      <div class="p-4 flex flex-col justify-center w-1/2">
-        <h3 class="text-xl font-semibold text-gray-800 mb-1"> Create a Public Profile</h3>
-        <p class="text-gray-600 text-lg">Let clients discover you with your SnapMate page.</p>
+      <img src="https://i.postimg.cc/Jn4cWRnB/2025-05-04-23-07-00.png" alt="Photographer" class="w-full sm:w-1/2 h-48 sm:h-auto object-cover">
+      <div class="p-4 flex flex-col justify-center w-full sm:w-1/2">
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1"> Create a Public Profile</h3>
+        <p class="text-sm sm:text-lg text-gray-600">Let clients discover you with your SnapMate page.</p>
       </div>
     </div>
 
     <!-- Card 2 -->
-    <div class="flex flex-row-reverse bg-white rounded-lg shadow-md overflow-hidden"
+    <div class="flex flex-col sm:flex-row-reverse bg-white rounded-lg shadow-md overflow-hidden"
          data-aos="fade-left" data-aos-delay="200">
-      <img src="https://i.postimg.cc/VNLjhLp3/2025-05-04-22-59-45.png" alt="Photographer" class="w-1/2 object-cover">
-      <div class="p-4 flex flex-col justify-center w-1/2 text-right">
-        <h3 class="text-xl font-semibold text-gray-800 mb-1"> Share a Curated Gallery</h3>
-        <p class="text-gray-600 text-lg">Showcase your best shots to attract the right clients.</p>
+      <img src="https://i.postimg.cc/VNLjhLp3/2025-05-04-22-59-45.png" alt="Photographer" class="w-full sm:w-1/2 h-48 sm:h-auto object-cover">
+      <div class="p-4 flex flex-col justify-center w-full sm:w-1/2 text-center sm:text-right">
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1"> Share a Curated Gallery</h3>
+        <p class="text-sm sm:text-lg text-gray-600">Showcase your best shots to attract the right clients.</p>
       </div>
     </div>
 
     <!-- Card 3 -->
-    <div class="flex flex-row bg-white rounded-lg shadow-md overflow-hidden"
+    <div class="flex flex-col sm:flex-row bg-white rounded-lg shadow-md overflow-hidden"
          data-aos="fade-right" data-aos-delay="300">
-      <img src="https://i.postimg.cc/K84T7sT2/2025-05-04-23-01-31.png" alt="Photographer" class="w-1/2 object-cover">
-      <div class="p-4 flex flex-col justify-center w-1/2">
-        <h3 class="text-xl font-semibold text-gray-800 mb-1"> Get Hired & Reviewed</h3>
-        <p class="text-gray-600 text-lg">Earn feedback and build your reputation with real clients.</p>
+      <img src="https://i.postimg.cc/K84T7sT2/2025-05-04-23-01-31.png" alt="Photographer" class="w-full sm:w-1/2 h-48 sm:h-auto object-cover">
+      <div class="p-4 flex flex-col justify-center w-full sm:w-1/2">
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1"> Get Hired & Reviewed</h3>
+        <p class="text-sm sm:text-lg text-gray-600">Earn feedback and build your reputation with real clients.</p>
       </div>
     </div>
 
     <!-- Card 4 -->
-    <div class="flex flex-row-reverse bg-white rounded-lg shadow-md overflow-hidden"
+    <div class="flex flex-col sm:flex-row-reverse bg-white rounded-lg shadow-md overflow-hidden"
          data-aos="fade-left" data-aos-delay="400">
-      <img src="https://i.postimg.cc/7ZFLS97s/2025-05-04-23-04-56.png" alt="Photographer" class="w-1/2 object-cover">
-      <div class="p-4 flex flex-col justify-center w-1/2 text-right">
-        <h3 class="text-xl font-semibold text-gray-800 mb-1"> No Fees. No Limits.</h3>
-        <p class="text-gray-600 text-lg">Upload freely. We believe your art should stay yours.</p>
+      <img src="https://i.postimg.cc/7ZFLS97s/2025-05-04-23-04-56.png" alt="Photographer" class="w-full sm:w-1/2 h-48 sm:h-auto object-cover">
+      <div class="p-4 flex flex-col justify-center w-full sm:w-1/2 text-center sm:text-right">
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1"> No Fees. No Limits.</h3>
+        <p class="text-sm sm:text-lg text-gray-600">Upload freely. We believe your art should stay yours.</p>
       </div>
     </div>
-
   </div>
 </section>
 
 <!--大学部分-->
-<section class="py-20 bg-orange-50">
-  <div style="font-family: 'Inter', sans-serif;" class="max-w-5xl mx-auto px-6 text-center">
-
+<section class="py-12 sm:py-20 bg-orange-50">
+  <div style="font-family: 'Inter', sans-serif;" class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
     <!-- 标题 -->
-    <h2 class="text-5xl md:text-5xl font-extrabold-inter text-[#1F323B] mb-24 leading-snug"
+    <h2 class="text-3xl sm:text-5xl font-extrabold-inter text-[#1F323B] mb-12 sm:mb-24 leading-snug"
         data-aos="fade-down">
         <span class="text-orange-500">SnapMate</span> is <span class="text-orange-500">Already Attracting</span> Talent<br>from:
     </h2>
 
     <!-- 校徽展示 -->
-    <div class="flex flex-wrap justify-center items-center gap-10"
+    <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10"
          data-aos="zoom-in-up" data-aos-delay="200">
-
       <!-- UC Davis -->
-      <div class="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-lg bg-white p-2 hover:scale-105 transition-transform duration-300">
+      <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full shadow-lg bg-white p-2 hover:scale-105 transition-transform duration-300">
         <img src="https://i.postimg.cc/B6h02qSf/2025-05-01-19-43-36.png"
              alt="UC Davis" 
-             class="w-full h-full object-cover rounded-full" />
+             class="w-full h-full max-w-full object-cover rounded-full" />
       </div>
 
       <!-- UW -->
-      <div class="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-lg bg-white p-2 hover:scale-105 transition-transform duration-300">
+      <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full shadow-lg bg-white p-2 hover:scale-105 transition-transform duration-300">
         <img src="https://i.postimg.cc/Y0KCvrb2/2025-05-01-19-48-06.png"
              alt="University of Washington"
-             class="w-full h-full object-cover rounded-full" />
+             class="w-full h-full max-w-full object-cover rounded-full" />
       </div>
 
       <!-- UW -->
-      <div class="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-lg bg-white p-2 hover:scale-105 transition-transform duration-300">
+      <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full shadow-lg bg-white p-2 hover:scale-105 transition-transform duration-300">
         <img src="https://i.postimg.cc/pdJPCjKd/2025-05-07-14-31-37.png"
              alt="UC Berkeley"
-             class="w-full h-full object-cover rounded-full" />
+             class="w-full h-full max-w-full object-cover rounded-full" />
       </div>
 
       <!-- Coming Soon -->
-      <div class="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-inner bg-gray-300/30 p-2 flex items-center justify-center text-sm text-gray-500 italic">
+      <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full shadow-inner bg-gray-300/30 p-2 flex items-center justify-center text-xs sm:text-sm text-gray-500 italic">
         Coming<br>soon...
       </div>
     </div>
 
     <!-- 尾部说明 -->
-    <p class="mt-20 text-xl text-[#1F323B] text-base" data-aos="fade-up" data-aos-delay="400">
+    <p class="mt-12 sm:mt-20 text-base sm:text-xl text-[#1F323B]" data-aos="fade-up" data-aos-delay="400">
       Join a growing community of students turning creativity into opportunity.
     </p>
   </div>
 </section>
 
   <!-- Testimonials -->
-  <section style="font-family: 'Inter', sans-serif;" class="py-20 bg-orange-50">
-    <div class="max-w-5xl mx-auto px-4 text-center">
-      <h3 class="text-3xl font-bold-inter text-[#1F323B] mb-2">📣 Photographers' Reviews</h3>
-      <p class="text-gray-600 text-lg mb-12">See what our members are saying about SnapMate</p>
+  <section style="font-family: 'Inter', sans-serif;" class="py-12 sm:py-20 bg-orange-50 overflow-x-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <h3 class="text-2xl sm:text-3xl font-bold-inter text-[#1F323B] mb-2">📣 Photographers' Reviews</h3>
+      <p class="text-gray-600 text-base sm:text-lg mb-8 sm:mb-12">See what our members are saying about SnapMate</p>
   
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
         <!-- Review Card 1 -->
-        <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-5">
-          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
+        <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md flex items-start space-x-3 sm:space-x-5">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
             <img src="https://i.postimg.cc/15GNmfMN/temp-Imagen-Ssc-Mt.avif" alt="Photographer" class="w-full h-full object-cover">
           </div>
           <div class="text-left">
-            <p class="text-gray-900 font-semibold-inter text-lg mb-1">“This website helps me earn a lot in my free time.”</p>
-            <p class="text-sm italic text-gray-600">Seattle · FUJI XT4</p>
+            <p class="text-gray-900 font-semibold-inter text-base sm:text-lg mb-1">"This website helps me earn a lot in my free time."</p>
+            <p class="text-xs sm:text-sm italic text-gray-600">Seattle · FUJI XT4</p>
           </div>
         </div>
   
         <!-- Review Card 2 -->
-        <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-5">
-          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
+        <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md flex items-start space-x-3 sm:space-x-5">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
             <img src="https://i.postimg.cc/CxwnzS6r/temp-Imagei9-Ftje.avif" alt="Photographer" class="w-full h-full object-cover">
           </div>
           <div class="text-left">
-            <p class="text-gray-900 font-semibold-inter text-lg mb-1">“I finally made money with my instant camera!”</p>
-            <p class="text-sm italic text-gray-600">Davis · Pocket3, Instant Camera</p>
+            <p class="text-gray-900 font-semibold-inter text-base sm:text-lg mb-1">"I finally made money with my instant camera!"</p>
+            <p class="text-xs sm:text-sm italic text-gray-600">Davis · Pocket3, Instant Camera</p>
           </div>
         </div>
   
         <!-- Review Card 3 -->
-        <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-5">
-          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
+        <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md flex items-start space-x-3 sm:space-x-5">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
             <img src="https://i.postimg.cc/TYMDvrj6/temp-Imaged-ZAB7k.avif" alt="Photographer" class="w-full h-full object-cover">
           </div>
           <div class="text-left">
-            <p class="text-gray-900 font-semibold-inter text-lg mb-1">“Film photography gigs? Never thought it was possible!”</p>
-            <p class="text-sm italic text-gray-600">Seattle · Canon AE-1</p>
+            <p class="text-gray-900 font-semibold-inter text-base sm:text-lg mb-1">"Film photography gigs? Never thought it was possible!"</p>
+            <p class="text-xs sm:text-sm italic text-gray-600">Seattle · Canon AE-1</p>
           </div>
         </div>
   
         <!-- Review Card 4 -->
-        <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-5">
-          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
+        <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md flex items-start space-x-3 sm:space-x-5">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-orange-300 shadow-sm">
             <img src="https://i.postimg.cc/Rh8JWHyc/temp-Image2rlm-IT.avif" alt="Photographer" class="w-full h-full object-cover">
           </div>
           <div class="text-left">
-            <p class="text-gray-900 font-semibold-inter text-lg mb-1">“Even my CCD and iphone can get many bookings !!! ”</p>
-            <p class="text-sm italic text-gray-600">LA · Polaroid</p>
+            <p class="text-gray-900 font-semibold-inter text-base sm:text-lg mb-1">"Even my CCD and iphone can get many bookings !!! "</p>
+            <p class="text-xs sm:text-sm italic text-gray-600">LA · Polaroid</p>
           </div>
         </div>
       </div>
@@ -454,33 +424,33 @@
   </section>
 
   <!-- FAQ -->
-  <section style="font-family: 'Inter', sans-serif;" class=" py-20 px-4">
+  <section style="font-family: 'Inter', sans-serif;" class="py-12 sm:py-20 px-4 overflow-x-hidden">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-2xl font-bold-inter text-center mb-10">Frequently Asked Questions</h2>
-      <div class="space-y-6">
+      <h2 class="text-xl sm:text-2xl font-bold-inter text-center mb-6 sm:mb-10">Frequently Asked Questions</h2>
+      <div class="space-y-4 sm:space-y-6">
         <div>
-          <h3 class="font-semibold-inter text-lg">Q: Are there restrictions on camera type?</h3>
-          <p class="text-gray-600 mt-1">A: Not at all! Whether it's film, digital, drone, or Polaroid—we support all formats.</p>
+          <h3 class="font-semibold-inter text-base sm:text-lg">Q: Are there restrictions on camera type?</h3>
+          <p class="text-sm sm:text-base text-gray-600 mt-1">A: Not at all! Whether it's film, digital, drone, or Polaroid—we support all formats.</p>
         </div>
         <div>
-          <h3 class="font-semibold-inter text-lg">Q: Does it cost anything to join SnapMate?</h3>
-          <p class="text-gray-600 mt-1">A: It's 100% free to join and start earning.</p>
+          <h3 class="font-semibold-inter text-base sm:text-lg">Q: Does it cost anything to join SnapMate?</h3>
+          <p class="text-sm sm:text-base text-gray-600 mt-1">A: It's 100% free to join and start earning.</p>
         </div>
         <div>
-          <h3 class="font-semibold-inter text-lg">Q: How do I set my pricing?</h3>
-          <p class="text-gray-600 mt-1">A: You can choose hourly, per-photo, or both. It's totally up to you.</p>
+          <h3 class="font-semibold-inter text-base sm:text-lg">Q: How do I set my pricing?</h3>
+          <p class="text-sm sm:text-base text-gray-600 mt-1">A: You can choose hourly, per-photo, or both. It's totally up to you.</p>
         </div>
         <div>
-          <h3 class="font-semibold-inter text-lg">Q: How do I talk to clients?</h3>
-          <p class="text-gray-600 mt-1">A: We offer an in-app chat and photo delivery system so everything stays organized and professional.</p>
+          <h3 class="font-semibold-inter text-base sm:text-lg">Q: How do I talk to clients?</h3>
+          <p class="text-sm sm:text-base text-gray-600 mt-1">A: We offer an in-app chat and photo delivery system so everything stays organized and professional.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section class="text-center py-20 px-4">
-    <h2 class="text-3xl text-[#1F323B] font-bold-inter">Join <span class="text-orange-500">SnapMate</span><br>Start Earning<br>Build Your Photography Portfolio<br><span class="text-orange-500">For FREE !!!</span></h2>
+  <section class="text-center py-12 sm:py-20 px-4 overflow-x-hidden">
+    <h2 class="text-2xl sm:text-3xl text-[#1F323B] font-bold-inter">Join <span class="text-orange-500">SnapMate</span><br>Start Earning<br>Build Your Photography Portfolio<br><span class="text-orange-500">For FREE !!!</span></h2>
     <button onclick="toggleModal()" class="mt-6 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-semibold">
       Join Now
     </button>
