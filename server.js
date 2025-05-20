@@ -58,7 +58,7 @@ const UserWaitlist = mongoose.model('UserWaitlist', UserWaitlistSchema);
 
 // 启动服务器
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://0.0.0.0:${PORT}`);
 });
 
 app.post('/api/join', async (req, res) => {
