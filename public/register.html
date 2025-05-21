@@ -527,7 +527,9 @@
     © 2025 SnapMate. All rights reserved.
   </footer>
 
-  <script>
+  <script type="module">
+import imageCompression from '/node_modules/browser-image-compression/dist/browser-image-compression.js';
+
     function startRegistration() {
       document.getElementById("introSection").classList.add("hidden");
       document.getElementById("step1").classList.remove("hidden");
@@ -896,11 +898,16 @@ if (document.getElementById('submitRegisterBtn')) {
     const avatarFile = document.getElementById('avatarInput').files[0];
     // 3. 获取作品集文件
     const portfolioFiles = document.getElementById('portfolioInput').files;
-    // 4. 上传头像到Cloudinary
+    // 4. 压缩并上传头像到Cloudinary
     let avatarUrl = '';
     if (avatarFile) {
+      const compressedAvatar = await imageCompression(avatarFile, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1200,
+        useWebWorker: true
+      });
       const avatarForm = new FormData();
-      avatarForm.append('avatar', avatarFile);
+      avatarForm.append('avatar', compressedAvatar, avatarFile.name);
       const avatarRes = await fetch('/api/upload/avatar', {
         method: 'POST',
         body: avatarForm
@@ -908,12 +915,17 @@ if (document.getElementById('submitRegisterBtn')) {
       const avatarData = await avatarRes.json();
       avatarUrl = avatarData.url;
     }
-    // 5. 上传作品集到Cloudinary
+    // 5. 压缩并上传作品集到Cloudinary
     let portfolioUrls = [];
     if (portfolioFiles.length > 0) {
       const portfolioForm = new FormData();
       for (let i = 0; i < portfolioFiles.length; i++) {
-        portfolioForm.append('photos', portfolioFiles[i]);
+        const compressedPhoto = await imageCompression(portfolioFiles[i], {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1200,
+          useWebWorker: true
+        });
+        portfolioForm.append('photos', compressedPhoto, portfolioFiles[i].name);
       }
       const portfolioRes = await fetch('/api/upload/portfolio', {
         method: 'POST',
