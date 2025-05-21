@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>成为摄影师 | SnapMate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-900 min-h-screen flex flex-col">
+
+  <!-- 顶部导航栏 -->
+  <header class="w-full p-6 flex justify-between items-center border-b sticky top-0 bg-white z-50">
+    <img src="https://i.postimg.cc/jjdfktHn/temp-Image-Ld-ABip.avif" alt="SnapMate Logo" class="h-16 w-auto">
+    <p id="progressText" class="text-sm text-gray-600 hidden">Step 1 of 5</p>
+  </header>
+
+  <main class="flex-1 flex flex-col">
+    
+    <!-- 🎯 引导页（改进版） -->
+    <section id="introSection" class="flex-1 flex items-center bg-gradient-to-br from-white to-orange-50">
+      <div class="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-16 p-6 lg:p-12">
+        <!-- 文案左侧 -->
+        <div class="text-left space-y-8">
+          <div class="space-y-4">
+            <h2 class="text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+              Getting started on <span class="text-orange-500">SnapMate</span><br /> is simple and fast.
+            </h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+              Join our community of professional photographers and start sharing your unique perspective with the world.
+            </p>
+          </div>
+          
+          <div class="flex flex-wrap gap-4">
+            <div class="flex items-center space-x-2 bg-white/50 backdrop-blur-sm px-4 py-2 rounded-lg">
+              <i class="fas fa-camera text-orange-500"></i>
+              <span class="text-gray-700">Professional Tools</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-white/50 backdrop-blur-sm px-4 py-2 rounded-lg">
+              <i class="fas fa-users text-orange-500"></i>
+              <span class="text-gray-700">Growing Community</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-white/50 backdrop-blur-sm px-4 py-2 rounded-lg">
+              <i class="fas fa-dollar-sign text-orange-500"></i>
+              <span class="text-gray-700">Flexible Pricing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 步骤右侧 -->
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl transform -rotate-3"></div>
+          <div class="relative bg-white rounded-2xl shadow-xl p-8 space-y-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+            <div class="space-y-2">
+              <h3 class="text-2xl font-bold text-gray-800">Three Simple Steps</h3>
+              <p class="text-gray-600">Start your journey with SnapMate today</p>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="flex items-start space-x-4 group">
+              <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 font-bold group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">1</div>
+              <div class="flex-grow">
+                <h4 class="font-semibold text-xl group-hover:text-orange-500 transition-colors duration-300">Fill in your profile</h4>
+                <p class="text-gray-600 text-base">Tell us your name, location, and contact details.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex items-start space-x-4 group">
+              <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 font-bold group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">2</div>
+              <div class="flex-grow">
+                <h4 class="font-semibold text-xl group-hover:text-orange-500 transition-colors duration-300">Show your style</h4>
+                <p class="text-gray-600 text-base">Upload your portfolio and set your price & expertise.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex items-start space-x-4 group">
+              <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 font-bold group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">3</div>
+              <div class="flex-grow">
+                <h4 class="font-semibold text-xl group-hover:text-orange-500 transition-colors duration-300">Start getting booked</h4>
+                <p class="text-gray-600 text-base">Once published, your profile will be visible to clients!</p>
+              </div>
+            </div>
+
+            <button onclick="startRegistration()" 
+              class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+              Get Started Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 1 基本信息-->
+    <section id="step1" class="hidden flex-1 flex items-center">
+      <div class="max-w-2xl mx-auto w-full p-6 lg:p-8 space-y-8">
+        <div class="flex items-center space-x-4 mb-6">
+          <button onclick="returnToIntro()" class="text-gray-600 hover:text-orange-500 transition-colors duration-300 flex items-center">
+            <i class="fas fa-arrow-left text-lg"></i>
+            <span class="ml-2">Back to Home</span>
+          </button>
+        </div>
+
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold leading-snug">Tell us some basic information.</h2>
+          <p class="text-gray-600 mt-2">This information will be displayed on your photographer profile to help clients get to know you.</p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- 用户名 -->
+          <div>
+            <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <input type="text" id="username" placeholder="username" required
+                  class="w-full border border-gray-300 px-4 py-3 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+          </div>
+
+          <!-- 邮箱 -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">email</label>
+            <input type="email" id="email" placeholder="you@example.com" required
+                  class="w-full border border-gray-300 px-4 py-3 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+          </div>
+
+          <!--密码 -->
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Set Password</label>
+            <input type="password" id="password" placeholder="Please set your password" required
+                  class="w-full border border-gray-300 px-4 py-3 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+          </div>
+        </div>
+
+        <div class="flex justify-end mt-8">
+          <button onclick="goToStep(2)"
+            class="bg-orange-500 hover:bg-orange-600 text-white text-lg px-6 py-2 rounded-full font-semibold shadow">
+            Next
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2 location + bio -->
+    <section id="step2" class="hidden flex-1 flex items-center">
+      <div class="max-w-2xl mx-auto w-full p-6 lg:p-8 space-y-8">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold leading-snug">Tell us more about yourself.</h2>
+          <p class="text-gray-600 mt-2">This information will be displayed on your photographer profile to help clients get to know you.</p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Location -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+            <input type="text" name="location" placeholder="e.g., Los Angeles, CA"
+                  class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+          </div>
+
+          <!-- Short Bio -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Short Bio</label>
+            <textarea name="bio" rows="4" placeholder="Introduce yourself and your photography style"
+                      class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+          </div>
+        </div>
+
+        <!-- 按钮 -->
+        <div class="flex justify-between mt-8">
+          <button onclick="goToStep(1)" class="text-gray-600 hover:text-orange-500 font-medium">
+            ← back
+          </button>
+          <button onclick="goToStep(3)" class="bg-orange-500 hover:bg-orange-600 text-white text-lg px-6 py-2 rounded-full font-semibold shadow">
+            Next
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 3 设备和摄影场景选择 -->
+    <section id="step3" class="hidden flex-1 flex items-center">
+      <div class="max-w-3xl mx-auto w-full p-6 lg:p-8 space-y-8">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold leading-snug">Tell us about your photography gear and expertise</h2>
+          <p class="text-gray-600 mt-2">Select all that apply to help clients understand your equipment and style.</p>
+        </div>
+
+        <!-- 设备选择 -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold text-lg">Photography Equipment</h3>
+            <span class="text-sm text-gray-500" id="deviceCount">Selected: 0</span>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="deviceGrid">
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="Digital camera" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-camera text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Digital Camera</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">DSLR/Mirrorless</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="Film camera" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-film text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Film Camera</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Analog Photography</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="Instant photo" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-image text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Instant Camera</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Polaroid/Instax</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="CCD" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-microchip text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">CCD Camera</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Professional CCD</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="Video camera" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-video text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Video Camera</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Professional Video</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="Drone" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-plane text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Drone Camera</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Aerial Photography</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="Vlogging camera" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-video-camera text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Vlogging Camera</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Content Creation</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="device-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="device" value="Other" class="sr-only peer" onchange="updateDeviceCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-plus-circle text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Other Equipment</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Custom Setup</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- 专长选择 -->
+        <div class="space-y-4 pt-6">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold text-lg">Photography Expertise</h3>
+            <span class="text-sm text-gray-500" id="expertiseCount">Selected: 0</span>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="expertiseGrid">
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Portrait" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-user text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Portrait</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">People & Portraits</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Landscape" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-mountain text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Landscape</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Nature & Scenery</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Graduation" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-graduation-cap text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Graduation</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Academic Events</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Family" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-users text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Family</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Group & Family</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Sports" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-running text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Sports</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Action & Sports</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Party" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-glass-cheers text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Events</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Parties & Events</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Commercial" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-store text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Commercial</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Business & Products</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+
+            <label class="expertise-item relative cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group">
+              <input type="checkbox" name="expertise" value="Other" class="sr-only peer" onchange="updateExpertiseCount()" />
+              <div class="rounded-xl border-2 border-gray-300 px-4 py-3 text-center bg-white peer-checked:bg-orange-50 peer-checked:border-orange-500 peer-checked:ring-2 peer-checked:ring-orange-400 transition-all duration-300 hover:border-orange-300">
+                <i class="fas fa-plus-circle text-xl mb-2 text-gray-600 peer-checked:text-orange-500 transition-colors duration-300"></i>
+                <div class="font-medium peer-checked:text-orange-600 transition-colors duration-300">Other</div>
+                <div class="text-xs text-gray-500 mt-1 peer-checked:text-orange-500/70 transition-colors duration-300">Custom Style</div>
+                <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full text-white flex items-center justify-center transform scale-0 peer-checked:scale-100 transition-transform duration-300">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- 按钮 -->
+        <div class="flex justify-between mt-8">
+          <button onclick="goToStep(2)" class="text-gray-600 hover:text-orange-500 font-medium">
+            ← back
+          </button>
+          <button onclick="goToStep(4)" class="bg-orange-500 hover:bg-orange-600 text-white text-lg px-6 py-2 rounded-full font-semibold shadow">
+            Next
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 4 Price -->
+    <section id="step4" class="hidden flex-1 flex items-center">
+      <div class="max-w-2xl mx-auto w-full p-6 lg:p-8 space-y-8">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold leading-snug">What is your starting price?</h2>
+          <p class="text-gray-600 mt-2">You can update this anytime in your profile settings.</p>
+        </div>
+
+        <!-- Price Input -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm space-y-6">
+          <div class="space-y-4">
+            <label for="priceInput" class="block text-2xl font-semibold text-gray-800">What is your hourly rate?</label>
+            
+            <div class="flex items-center justify-center bg-gray-50 rounded-xl p-6">
+              <div class="inline-flex items-center space-x-3">
+                <span class="text-4xl text-gray-700 font-medium">$</span>
+                <input id="priceInput" name="price" type="number" min="0" placeholder="0"
+                      class="w-40 text-4xl font-bold text-center bg-transparent border-b-2 border-orange-500 focus:border-orange-600 py-2 focus:outline-none transition-all duration-300"
+                      oninput="updatePriceRecommendation()" />
+                <span class="text-2xl text-gray-700 font-medium">/ hr</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-sm text-gray-500 text-center">Average price in your area:</p>
+            <div class="flex justify-center">
+              <div class="text-center transform transition-all duration-300 hover:scale-105">
+                <span class="block text-3xl font-bold text-orange-500">$70</span>
+                <span class="text-sm text-gray-500">per hour</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price Hint -->
+          <div id="priceHint" class="hidden">
+            <div class="flex items-center justify-center space-x-2 text-sm mt-4">
+              <i class="fas fa-info-circle text-orange-500"></i>
+              <span class="text-gray-600">The average rate helps you stay competitive in the market</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-between mt-8">
+          <button onclick="goToStep(3)" class="text-gray-600 hover:text-orange-500 font-medium">
+            ← Back
+          </button>
+          <button onclick="goToStep(5)" class="bg-orange-500 hover:bg-orange-600 text-white text-lg px-6 py-2 rounded-full font-semibold shadow">
+            Next
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 5 上传头像和作品 -->
+    <section id="step5" class="hidden flex-1 flex items-center">
+      <div class="max-w-5xl mx-auto w-full p-6 lg:p-8 space-y-8">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold leading-snug">Create Your Own Gallery</h2>
+          <p class="text-gray-600 mt-2">Upload 1 to 5 of your best photos. These will be displayed on your profile page.</p>
+        </div>
+
+        <!-- 上传头像 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700 mb-1">头像上传</label>
+          <input type="file" id="avatarInput" accept="image/*"
+                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:outline-none"
+                onchange="previewAvatar(event)" />
+
+          <div id="avatarPreviewContainer" class="mt-3 hidden">
+            <p class="text-sm text-gray-500 mb-1">头像预览：</p>
+            <img id="avatarPreview" src="" alt="Avatar Preview" class="w-24 h-24 object-cover rounded-full border shadow" />
+          </div>
+        </div>
+
+        <!-- 多图上传 -->
+        <div class="space-y-4">
+          <input type="file" id="portfolioInput" accept="image/*" multiple
+                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none"
+                onchange="previewPortfolio(event)" />
+
+          <p class="text-sm text-gray-500">Recommended: Upload JPG or PNG images and Select One as the Cover Photo. </p>
+
+          <!-- 预览缩略图 - 改为左右布局 -->
+          <div id="portfolioPreviewContainer" class="hidden">
+            <div class="flex flex-col lg:flex-row gap-6">
+              <!-- 左侧大图区域 -->
+              <div id="coverPhotoContainer" class="w-full lg:w-2/3 flex items-center justify-center">
+                <!-- 封面图片将在这里显示 -->
+              </div>
+              <!-- 右侧小图网格 -->
+              <div id="thumbnailsContainer" class="w-full lg:w-1/3 grid grid-cols-2 gap-4">
+                <!-- 其他图片缩略图将在这里显示 -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 按钮 -->
+        <div class="flex justify-between mt-8">
+          <button onclick="goToStep(4)" class="text-gray-600 hover:text-orange-500 font-medium">
+            ← back
+          </button>
+          <button id="submitRegisterBtn" type="button"
+            class="bg-orange-500 hover:bg-orange-700 text-white text-lg px-6 py-2 rounded-full font-semibold shadow">
+            Submit
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="text-center text-sm text-gray-400 py-6 border-t">
+    © 2025 SnapMate. All rights reserved.
+  </footer>
+
+  <script>
+    function startRegistration() {
+      document.getElementById("introSection").classList.add("hidden");
+      document.getElementById("step1").classList.remove("hidden");
+      document.getElementById("progressText").classList.remove("hidden");
+      // 隐藏开始按钮
+      document.querySelector('button[onclick="startRegistration()"]').classList.add("hidden");
+    }
+
+    function goToStep(step) {
+      for (let i = 1; i <= 5; i++) {
+        const el = document.getElementById(`step${i}`);
+        if (el) el.classList.add('hidden');
+      }
+      const target = document.getElementById(`step${step}`);
+      if (target) target.classList.remove('hidden');
+      document.getElementById("progressText").innerText = `Step ${step} of 5`;
+    }
+
+    function returnToIntro() {
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("introSection").classList.remove("hidden");
+      document.getElementById("progressText").classList.add("hidden");
+      // 重新显示开始按钮
+      document.querySelector('button[onclick="startRegistration()"]').classList.remove("hidden");
+    }
+
+    //头像预览
+    function previewAvatar(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById("avatarPreview");
+      const container = document.getElementById("avatarPreviewContainer");
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          container.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    let selectedCoverIndex = null;
+//缩略图preview+封面选择
+function previewPortfolio(event) {
+  const files = event.target.files;
+  const container = document.getElementById("portfolioPreviewContainer");
+  const coverContainer = document.getElementById("coverPhotoContainer");
+  const thumbnailsContainer = document.getElementById("thumbnailsContainer");
+  
+  // 清空旧内容
+  coverContainer.innerHTML = "";
+  thumbnailsContainer.innerHTML = "";
+
+  if (files.length > 5) {
+    alert("最多只能上传 5 张图片");
+    event.target.value = "";
+    return;
+  }
+
+  if (files.length === 0) {
+    container.classList.add("hidden");
+    return;
+  }
+
+  // 存储所有图片的引用
+  window.portfolioImages = Array.from(files);
+
+  // 创建图片预览元素的函数
+  function createImagePreview(file, index, isCover = false) {
+    const wrapper = document.createElement("div");
+    wrapper.className = `relative cursor-pointer group transition-all duration-300 ease-in-out ${
+      isCover ? 'flex items-center justify-center' : 'hover:scale-105'
+    }`;
+    wrapper.onclick = () => setCoverImage(index);
+
+    const img = document.createElement("img");
+    img.className = isCover 
+      ? "max-w-full max-h-[600px] object-contain rounded-xl border-2 border-orange-500 ring-4 ring-orange-300 shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl"
+      : "w-full h-40 object-cover rounded-lg border-2 transition-all duration-300 ease-in-out group-hover:border-orange-500 group-hover:shadow-lg";
+    img.dataset.index = index;
+
+    const badge = document.createElement("div");
+    badge.innerText = isCover ? "封面照片" : "设为封面";
+    badge.className = isCover
+      ? "absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+      : "absolute top-2 left-2 bg-orange-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 transform -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg";
+
+    // 添加删除按钮
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+    deleteBtn.className = "absolute top-2 right-2 bg-red-500/90 backdrop-blur-sm text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg hover:bg-red-600";
+    deleteBtn.onclick = (e) => {
+      e.stopPropagation();
+      removeImage(index);
+    };
+
+    // 添加加载动画
+    const loader = document.createElement("div");
+    loader.className = "absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm transition-opacity duration-300";
+    loader.innerHTML = '<div class="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>';
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(badge);
+    wrapper.appendChild(deleteBtn);
+    wrapper.appendChild(loader);
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      img.src = e.target.result;
+      loader.remove(); // 加载完成后移除加载动画
+    };
+    reader.readAsDataURL(file);
+
+    return wrapper;
+  }
+
+  // 创建并显示第一张图片作为封面
+  if (files.length > 0) {
+    const coverWrapper = createImagePreview(files[0], 0, true);
+    coverContainer.appendChild(coverWrapper);
+  }
+
+  // 创建并显示其他图片作为缩略图
+  Array.from(files).slice(1).forEach((file, index) => {
+    const thumbnailWrapper = createImagePreview(file, index + 1, false);
+    thumbnailsContainer.appendChild(thumbnailWrapper);
+  });
+
+  // 添加拖放提示
+  const dropHint = document.createElement("div");
+  dropHint.className = "col-span-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center text-gray-500 hover:border-orange-500 transition-colors duration-300";
+  dropHint.innerHTML = `
+    <i class="fas fa-plus-circle text-3xl mb-2"></i>
+    <p>拖放图片到这里<br>或点击上传更多</p>
+  `;
+  thumbnailsContainer.appendChild(dropHint);
+
+  container.classList.remove("hidden");
+  selectedCoverIndex = 0;
+}
+
+// 删除图片的函数
+function removeImage(index) {
+  if (!window.portfolioImages) return;
+  
+  // 从数组中移除图片
+  window.portfolioImages.splice(index, 1);
+  
+  // 如果没有图片了，隐藏预览容器
+  if (window.portfolioImages.length === 0) {
+    document.getElementById("portfolioPreviewContainer").classList.add("hidden");
+    document.getElementById("portfolioInput").value = "";
+    return;
+  }
+  
+  // 重新渲染所有图片
+  const coverContainer = document.getElementById("coverPhotoContainer");
+  const thumbnailsContainer = document.getElementById("thumbnailsContainer");
+  
+  coverContainer.innerHTML = "";
+  thumbnailsContainer.innerHTML = "";
+  
+  // 重新创建封面图片
+  const coverWrapper = createImagePreview(window.portfolioImages[0], 0, true);
+  coverContainer.appendChild(coverWrapper);
+  
+  // 重新创建缩略图
+  window.portfolioImages.slice(1).forEach((file, index) => {
+    const thumbnailWrapper = createImagePreview(file, index + 1, false);
+    thumbnailsContainer.appendChild(thumbnailWrapper);
+  });
+}
+
+// 辅助函数：创建单个图片预览
+function createImagePreview(file, index, isCover = false) {
+  const wrapper = document.createElement("div");
+  wrapper.className = `relative cursor-pointer group transition-all duration-300 ease-in-out ${isCover ? 'flex items-center justify-center' : 'hover:scale-105'}`;
+  wrapper.onclick = () => setCoverImage(index);
+
+  const img = document.createElement("img");
+  img.className = isCover 
+    ? "max-w-full max-h-[600px] object-contain rounded-xl border-2 border-orange-500 ring-4 ring-orange-300 shadow-lg transition-all duration-300 ease-in-out"
+    : "w-full h-40 object-cover rounded-lg border-2 transition-all duration-300 ease-in-out";
+  img.dataset.index = index;
+
+  const badge = document.createElement("div");
+  badge.innerText = isCover ? "Cover Photo" : "Choose as Cover Photo";
+  badge.className = isCover
+    ? "absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium"
+    : "absolute top-2 left-2 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 transform -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0";
+
+  wrapper.appendChild(img);
+  wrapper.appendChild(badge);
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+
+  return wrapper;
+}
+
+function setCoverImage(newCoverIndex) {
+  if (newCoverIndex === selectedCoverIndex || !window.portfolioImages) return;
+
+  const coverContainer = document.getElementById("coverPhotoContainer");
+  const thumbnailsContainer = document.getElementById("thumbnailsContainer");
+
+  // 获取新的封面图片和当前封面图片
+  const newCoverFile = window.portfolioImages[newCoverIndex];
+  const oldCoverFile = window.portfolioImages[selectedCoverIndex];
+
+  // 更新图片数组顺序
+  window.portfolioImages[selectedCoverIndex] = newCoverFile;
+  window.portfolioImages[newCoverIndex] = oldCoverFile;
+
+  // 重新渲染所有图片
+  coverContainer.innerHTML = '';
+  thumbnailsContainer.innerHTML = '';
+
+  // 创建新的封面
+  const newCoverWrapper = createImagePreview(newCoverFile, selectedCoverIndex, true);
+  coverContainer.appendChild(newCoverWrapper);
+
+  // 重新创建所有缩略图
+  window.portfolioImages.slice(1).forEach((file, index) => {
+    const thumbnailWrapper = createImagePreview(file, index + 1, false);
+    thumbnailsContainer.appendChild(thumbnailWrapper);
+  });
+}
+
+// 更新设备选择计数
+function updateDeviceCount() {
+  const checkedCount = document.querySelectorAll('input[name="device"]:checked').length;
+  const countElement = document.getElementById('deviceCount');
+  countElement.textContent = `Selected: ${checkedCount}`;
+  
+  // 添加动画效果
+  countElement.classList.add('animate-pulse');
+  setTimeout(() => {
+    countElement.classList.remove('animate-pulse');
+  }, 500);
+}
+
+// 初始化设备选择
+document.addEventListener('DOMContentLoaded', function() {
+  // 添加进入动画
+  const deviceItems = document.querySelectorAll('.device-item');
+  deviceItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      item.style.opacity = '1';
+      item.style.transform = 'translateY(0)';
+    }, index * 100);
+  });
+});
+
+// 更新专长选择计数
+function updateExpertiseCount() {
+  const checkedCount = document.querySelectorAll('input[name="expertise"]:checked').length;
+  const countElement = document.getElementById('expertiseCount');
+  countElement.textContent = `Selected: ${checkedCount}`;
+  
+  // 添加动画效果
+  countElement.classList.add('animate-pulse');
+  setTimeout(() => {
+    countElement.classList.remove('animate-pulse');
+  }, 500);
+  
+  // 更新下一步按钮状态
+  const nextButton = document.querySelector('button[onclick="goToStep(4)"]');
+  if (checkedCount > 0) {
+    nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    nextButton.disabled = false;
+  } else {
+    nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+    nextButton.disabled = true;
+  }
+}
+
+// 初始化专长选择
+document.addEventListener('DOMContentLoaded', function() {
+  // 禁用下一步按钮
+  const nextButton = document.querySelector('button[onclick="goToStep(4)"]');
+  nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+  nextButton.disabled = true;
+  
+  // 添加进入动画
+  const expertiseItems = document.querySelectorAll('.expertise-item');
+  expertiseItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      item.style.opacity = '1';
+      item.style.transform = 'translateY(0)';
+    }, index * 100);
+  });
+});
+
+// 价格输入处理
+function updatePriceRecommendation() {
+  const price = parseInt(document.getElementById('priceInput').value) || 0;
+  const avgPrice = 70;
+  const hint = document.getElementById('priceHint');
+  
+  // 更新价格提示显示
+  if (price > 0) {
+    hint.classList.remove('hidden');
+  } else {
+    hint.classList.add('hidden');
+  }
+  
+  // 更新下一步按钮状态
+  const nextButton = document.querySelector('button[onclick="goToStep(5)"]');
+  if (price > 0) {
+    nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    nextButton.disabled = false;
+  } else {
+    nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+    nextButton.disabled = true;
+  }
+}
+
+// 初始化价格输入
+document.addEventListener('DOMContentLoaded', function() {
+  // 禁用下一步按钮
+  const nextButton = document.querySelector('button[onclick="goToStep(5)"]');
+  nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+  nextButton.disabled = true;
+  
+  // 添加价格输入框动画
+  const priceInput = document.getElementById('priceInput');
+  priceInput.style.opacity = '0';
+  priceInput.style.transform = 'translateY(20px)';
+  setTimeout(() => {
+    priceInput.style.opacity = '1';
+    priceInput.style.transform = 'translateY(0)';
+  }, 300);
+  
+  // 添加价格显示动画
+  const priceDisplay = document.querySelector('.text-3xl.font-bold.text-orange-500');
+  if (priceDisplay) {
+    priceDisplay.style.opacity = '0';
+    priceDisplay.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      priceDisplay.style.opacity = '1';
+      priceDisplay.style.transform = 'translateY(0)';
+    }, 500);
+  }
+});
+
+// 注册提交逻辑
+if (document.getElementById('submitRegisterBtn')) {
+  document.getElementById('submitRegisterBtn').addEventListener('click', async function (e) {
+    e.preventDefault();
+    // 1. 收集表单信息
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const location = document.querySelector('input[name="location"]').value;
+    const bio = document.querySelector('textarea[name="bio"]').value;
+    // 2. 获取头像文件
+    const avatarFile = document.getElementById('avatarInput').files[0];
+    // 3. 获取作品集文件
+    const portfolioFiles = document.getElementById('portfolioInput').files;
+    // 4. 上传头像到Cloudinary
+    let avatarUrl = '';
+    if (avatarFile) {
+      const avatarForm = new FormData();
+      avatarForm.append('avatar', avatarFile);
+      const avatarRes = await fetch('/api/upload/avatar', {
+        method: 'POST',
+        body: avatarForm
+      });
+      const avatarData = await avatarRes.json();
+      avatarUrl = avatarData.url;
+    }
+    // 5. 上传作品集到Cloudinary
+    let portfolioUrls = [];
+    if (portfolioFiles.length > 0) {
+      const portfolioForm = new FormData();
+      for (let i = 0; i < portfolioFiles.length; i++) {
+        portfolioForm.append('photos', portfolioFiles[i]);
+      }
+      const portfolioRes = await fetch('/api/upload/portfolio', {
+        method: 'POST',
+        body: portfolioForm
+      });
+      const portfolioData = await portfolioRes.json();
+      portfolioUrls = portfolioData.urls;
+    }
+    // 6. 收集专长和设备
+    const devices = Array.from(document.querySelectorAll('input[name="device"]:checked')).map(i => i.value);
+    const expertise = Array.from(document.querySelectorAll('input[name="expertise"]:checked')).map(i => i.value);
+    // 7. 收集价格
+    const price = document.getElementById('priceInput').value;
+    // 8. 组装注册数据
+    const registerData = {
+      username,
+      email,
+      password,
+      location,
+      bio,
+      avatar: avatarUrl,
+      portfolio: portfolioUrls,
+      devices,
+      expertise,
+      price
+    };
+    // 9. 提交注册信息到后端
+    const res = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(registerData)
+    });
+    const result = await res.json();
+    if (res.ok) {
+      alert('注册成功！');
+      // 可跳转或清空表单
+    } else {
+      alert('注册失败：' + (result.message || '未知错误'));
+    }
+  });
+}
+
+  </script>
+
+</body>
+</html>

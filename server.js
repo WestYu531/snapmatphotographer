@@ -5,6 +5,7 @@ const cors = require('cors');
 require('dotenv').config(); // 从 .env 文件读取环境变量
 
 const path = require('path'); // ✅ 新增
+const uploadRouter = require('./upload');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -55,6 +56,23 @@ const UserWaitlistSchema = new mongoose.Schema({
 });
 
 const UserWaitlist = mongoose.model('UserWaitlist', UserWaitlistSchema);
+
+// 摄影师注册Schema
+const PhotographerSchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  location: String,
+  bio: String,
+  avatar: String, // 头像url
+  portfolio: [String], // 作品集url数组
+  devices: [String],
+  expertise: [String],
+  price: Number,
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Photographer = mongoose.model('snapmatephotographer', PhotographerSchema);
 
 // 启动服务器
 app.listen(PORT, () => {
@@ -147,4 +165,46 @@ app.get('/joinnow', (req, res) => {
 // 添加根路由
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'new_index.html'));
+});
+
+app.use('/api', uploadRouter);
+
+// 注册API
+app.post('/api/register', async (req, res) => {
+  try {
+    const { username, email, password, location, bio, avatar, portfolio, devices, expertise, price } = req.body;
+    // 校验必填项
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'email or password is missing' });
+    }
+    // 检查邮箱唯一
+    const exist = await Photographer.findOne({ email });
+    if (exist) {
+      return res.status(400).json({ message: 'email already registered' });
+    }
+    // 密码加密（可选，建议用bcrypt）
+    // const hash = await bcrypt.hash(password, 10);
+    // 存入数据库
+    const newUser = new Photographer({
+      username,
+      email,
+      password, // 生产环境建议存hash
+      location,
+      bio,
+      avatar,
+      portfolio,
+      devices,
+      expertise,
+      price
+    });
+    await newUser.save();
+    res.status(200).json({ message: 'register success' });
+  } catch (err) {
+    console.error('register failed:', err);
+    res.status(500).json({ message: 'register failed' });
+  }
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
