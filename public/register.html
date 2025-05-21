@@ -6,6 +6,7 @@
   <title>成为摄影师 | SnapMate</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 </head>
 <body class="bg-white text-gray-900 min-h-screen flex flex-col">
 
@@ -528,9 +529,7 @@
     © 2025 SnapMate. All rights reserved.
   </footer>
 
-  <script type="module">
-import imageCompression from '/node_modules/browser-image-compression/dist/browser-image-compression.js';
-
+  <script>
     function startRegistration() {
       document.getElementById("introSection").classList.add("hidden");
       document.getElementById("step1").classList.remove("hidden");
