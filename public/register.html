@@ -83,7 +83,7 @@
               </div>
             </div>
 
-            <button onclick="startRegistration()" 
+            <button id="getStartedBtn"
               class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-3 rounded-xl font-semibold shadow-lg transform hover:-translate-y-1 transition-all duration-300">
               Get Started Now
             </button>
@@ -148,11 +148,12 @@
         </div>
 
         <div class="space-y-6">
-          <!-- Location -->
-          <div>
+          <!-- Location with autocomplete -->
+          <div style="position:relative;">
             <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
-            <input type="text" name="location" placeholder="e.g., Los Angeles, CA"
+            <input type="text" name="location" id="locationInput" placeholder="e.g., Los Angeles, CA"
                   class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+            <div id="locationSuggestions" class="absolute left-0 right-0 bg-white border border-gray-200 rounded-b-xl shadow z-10" style="display:none;"></div>
           </div>
 
           <!-- Short Bio -->
@@ -965,6 +966,59 @@ if (document.getElementById('submitRegisterBtn')) {
     } else {
       alert('注册失败：' + (result.message || '未知错误'));
     }
+  });
+}
+
+// 绑定Get Started Now按钮事件
+const getStartedBtn = document.getElementById('getStartedBtn');
+if (getStartedBtn) {
+  getStartedBtn.addEventListener('click', startRegistration);
+}
+
+// 地点自动补全逻辑
+const cityList = [
+  'Davis, CA',
+  'Los Angeles, CA',
+  'San Francisco, CA',
+  'New York, NY',
+  'Seattle, WA',
+  'Berkeley, CA',
+  'San Diego, CA',
+  'Chicago, IL',
+  'Boston, MA'
+  // ...可继续添加
+];
+const locationInput = document.getElementById('locationInput');
+const suggestionsBox = document.getElementById('locationSuggestions');
+if (locationInput && suggestionsBox) {
+  locationInput.addEventListener('input', function() {
+    const value = this.value.trim().toLowerCase();
+    if (!value) {
+      suggestionsBox.style.display = 'none';
+      suggestionsBox.innerHTML = '';
+      return;
+    }
+    const matches = cityList.filter(city => city.toLowerCase().includes(value));
+    if (matches.length === 0) {
+      suggestionsBox.style.display = 'none';
+      suggestionsBox.innerHTML = '';
+      return;
+    }
+    suggestionsBox.innerHTML = matches.map(city => `<div class="px-4 py-2 cursor-pointer hover:bg-orange-100">${city}</div>`).join('');
+    suggestionsBox.style.display = 'block';
+    Array.from(suggestionsBox.children).forEach((item, idx) => {
+      item.addEventListener('click', () => {
+        locationInput.value = matches[idx];
+        suggestionsBox.style.display = 'none';
+        suggestionsBox.innerHTML = '';
+      });
+    });
+  });
+  locationInput.addEventListener('blur', () => {
+    setTimeout(() => {
+      suggestionsBox.style.display = 'none';
+      suggestionsBox.innerHTML = '';
+    }, 200);
   });
 }
 
