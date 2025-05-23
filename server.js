@@ -167,6 +167,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'new_index.html'));
 });
 
+// Health check 路由
+app.get('/healthcheck', (req, res) => {
+  res.status(200).send('OK');
+});
+
 app.use('/api', uploadRouter);
 
 // 注册API
