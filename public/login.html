@@ -36,7 +36,7 @@
       const data = await res.json();
       if (res.ok && data.token) {
         localStorage.setItem('token', data.token);
-        window.location.href = '/photoer.html';
+        window.location.href = '/photographer';
       } else {
         document.getElementById('loginError').textContent = data.message || '登录失败';
         document.getElementById('loginError').classList.remove('hidden');
