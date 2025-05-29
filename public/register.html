@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>成为摄影师 | SnapMate</title>
+  <title>Become a Photographer | SnapMate</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
@@ -112,13 +112,13 @@
           <!-- 用户名 -->
           <div>
             <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-            <input type="text" id="username" placeholder="username" required
+            <input type="text" id="username" placeholder="Enter your username" required
                   class="w-full border border-gray-300 px-4 py-3 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
           </div>
 
           <!-- 邮箱 -->
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">email</label>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input type="email" id="email" placeholder="you@example.com" required
                   class="w-full border border-gray-300 px-4 py-3 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
           </div>
@@ -126,7 +126,7 @@
           <!--密码 -->
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Set Password</label>
-            <input type="password" id="password" placeholder="Please set your password" required
+            <input type="password" id="password" placeholder="Create a strong password" required
                   class="w-full border border-gray-300 px-4 py-3 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
           </div>
         </div>
@@ -474,13 +474,13 @@
 
         <!-- 上传头像 -->
         <div class="space-y-2">
-          <label class="block text-sm font-medium text-gray-700 mb-1">头像上传</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Avatar Upload</label>
           <input type="file" id="avatarInput" accept="image/*"
                 class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:outline-none"
                 onchange="previewAvatar(event)" />
 
           <div id="avatarPreviewContainer" class="mt-3 hidden">
-            <p class="text-sm text-gray-500 mb-1">头像预览：</p>
+            <p class="text-sm text-gray-500 mb-1">Avatar Preview:</p>
             <img id="avatarPreview" src="" alt="Avatar Preview" class="w-24 h-24 object-cover rounded-full border shadow" />
           </div>
         </div>
@@ -491,7 +491,7 @@
                 class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none"
                 onchange="previewPortfolio(event)" />
 
-          <p class="text-sm text-gray-500">Recommended: Upload JPG or PNG images and Select One as the Cover Photo. </p>
+          <p class="text-sm text-gray-500">Recommended: Upload JPG or PNG images and Select One as the Cover Photo.</p>
 
           <!-- 预览缩略图 - 改为左右布局 -->
           <div id="portfolioPreviewContainer" class="hidden">
@@ -511,11 +511,11 @@
         <!-- 按钮 -->
         <div class="flex justify-between mt-8">
           <button onclick="goToStep(4)" class="text-gray-600 hover:text-orange-500 font-medium">
-            ← back
+            ← Back
           </button>
           <button id="submitRegisterBtn" type="button"
             class="bg-orange-500 hover:bg-orange-700 text-white text-lg px-6 py-2 rounded-full font-semibold shadow">
-            Submit
+            Submit Registration
           </button>
         </div>
       </div>
@@ -613,10 +613,10 @@ function previewPortfolio(event) {
     img.dataset.index = index;
 
     const badge = document.createElement("div");
-    badge.innerText = isCover ? "封面照片" : "设为封面";
+    badge.innerText = isCover ? "Cover Photo" : "Choose as Cover Photo";
     badge.className = isCover
       ? "absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
-      : "absolute top-2 left-2 bg-orange-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 transform -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg";
+      : "absolute top-2 left-2 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 transform -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg";
 
     // 添加删除按钮
     const deleteBtn = document.createElement("button");
@@ -664,7 +664,7 @@ function previewPortfolio(event) {
   dropHint.className = "col-span-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center text-gray-500 hover:border-orange-500 transition-colors duration-300";
   dropHint.innerHTML = `
     <i class="fas fa-plus-circle text-3xl mb-2"></i>
-    <p>拖放图片到这里<br>或点击上传更多</p>
+    <p>Drag and drop images here<br>or click to upload more</p>
   `;
   thumbnailsContainer.appendChild(dropHint);
 
@@ -960,10 +960,11 @@ if (document.getElementById('submitRegisterBtn')) {
     });
     const result = await res.json();
     if (res.ok) {
-      alert('注册成功！');
-      // 可跳转或清空表单
+      alert('Registration successful!');
+      // Redirect to login page
+      window.location.href = '/login.html';
     } else {
-      alert('注册失败：' + (result.message || '未知错误'));
+      alert('Registration failed: ' + (result.message || 'Unknown error'));
     }
   });
 }

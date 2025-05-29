@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>登录 - SnapMate</title>
+  <title>Login - SnapMate</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
   <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-6 text-center">登录到 SnapMate</h1>
+    <h1 class="text-2xl font-bold mb-6 text-center">Login to SnapMate</h1>
     <form id="loginForm" class="space-y-4">
       <div>
-        <label class="block mb-1 text-gray-700">邮箱</label>
+        <label class="block mb-1 text-gray-700">Email</label>
         <input type="email" id="email" class="w-full border rounded px-3 py-2" required />
       </div>
       <div>
-        <label class="block mb-1 text-gray-700">密码</label>
+        <label class="block mb-1 text-gray-700">Password</label>
         <input type="password" id="password" class="w-full border rounded px-3 py-2" required />
       </div>
-      <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600 transition">登录</button>
+      <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600 transition">Login</button>
     </form>
-    <p class="mt-4 text-center text-sm text-gray-500">还没有账号？<a href="register.html" class="text-blue-500 hover:underline">注册</a></p>
+    <p class="mt-4 text-center text-sm text-gray-500">Don't have an account? <a href="register.html" class="text-blue-500 hover:underline">Register</a></p>
     <p id="loginError" class="text-red-500 text-center mt-2 hidden"></p>
   </div>
   <script>
@@ -38,7 +38,7 @@
         localStorage.setItem('token', data.token);
         window.location.href = '/photographer';
       } else {
-        document.getElementById('loginError').textContent = data.message || '登录失败';
+        document.getElementById('loginError').textContent = data.message || 'Login failed';
         document.getElementById('loginError').classList.remove('hidden');
       }
     };
