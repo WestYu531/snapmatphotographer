@@ -2,6 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 require('dotenv').config(); // 从 .env 文件读取环境变量
 
 const path = require('path'); // ✅ 新增
@@ -21,6 +23,28 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+
+// JWT密钥
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+
+// JWT中间件
+const auth = async (req, res, next) => {
+  try {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    if (!token) {
+      throw new Error();
+    }
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const photographer = await Photographer.findOne({ _id: decoded.id });
+    if (!photographer) {
+      throw new Error();
+    }
+    req.photographer = photographer;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: '请先登录' });
+  }
+};
 
 // Middleware
 app.use(cors());
@@ -69,10 +93,28 @@ const PhotographerSchema = new mongoose.Schema({
   devices: [String],
   expertise: [String],
   price: Number,
+  serviceInfo: [String], // 新增 服务信息
+  highlights: [{
+    title: String,
+    desc: String
+  }], // 新增 服务亮点
   createdAt: { type: Date, default: Date.now }
 });
 
 const Photographer = mongoose.model('snapmatephotographer', PhotographerSchema);
+
+// 预约Schema
+const BookingSchema = new mongoose.Schema({
+  photographerId: { type: mongoose.Schema.Types.ObjectId, ref: 'snapmatephotographer', required: true },
+  date: { type: Date, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
+  price: { type: Number, required: true },
+  status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Booking = mongoose.model('Booking', BookingSchema);
 
 // 启动服务器
 app.listen(PORT, () => {
@@ -174,26 +216,78 @@ app.get('/healthcheck', (req, res) => {
 
 app.use('/api', uploadRouter);
 
-// 注册API
+// 登录API
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    // 查找用户
+    const photographer = await Photographer.findOne({ email });
+    if (!photographer) {
+      return res.status(401).json({ message: '邮箱或密码错误' });
+    }
+
+    // 验证密码
+    const isMatch = await bcrypt.compare(password, photographer.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: '邮箱或密码错误' });
+    }
+
+    // 生成JWT
+    const token = jwt.sign({ id: photographer._id }, JWT_SECRET, { expiresIn: '7d' });
+    
+    res.json({
+      token,
+      photographer: {
+        id: photographer._id,
+        username: photographer.username,
+        email: photographer.email,
+        avatar: photographer.avatar
+      }
+    });
+  } catch (err) {
+    console.error('登录失败:', err);
+    res.status(500).json({ message: '登录失败' });
+  }
+});
+
+// 获取当前用户信息
+app.get('/api/me', auth, async (req, res) => {
+  try {
+    const photographer = await Photographer.findById(req.photographer._id)
+      .select('-password');
+    res.json(photographer);
+  } catch (err) {
+    console.error('获取用户信息失败:', err);
+    res.status(500).json({ message: '获取用户信息失败' });
+  }
+});
+
+// 修改注册API，添加密码加密
 app.post('/api/register', async (req, res) => {
   try {
     const { username, email, password, location, bio, avatar, portfolio, devices, expertise, price } = req.body;
+    
     // 校验必填项
     if (!username || !email || !password) {
-      return res.status(400).json({ message: 'email or password is missing' });
+      return res.status(400).json({ message: '用户名、邮箱和密码为必填项' });
     }
+
     // 检查邮箱唯一
     const exist = await Photographer.findOne({ email });
     if (exist) {
-      return res.status(400).json({ message: 'email already registered' });
+      return res.status(400).json({ message: '该邮箱已被注册' });
     }
-    // 密码加密（可选，建议用bcrypt）
-    // const hash = await bcrypt.hash(password, 10);
+
+    // 密码加密
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     // 存入数据库
     const newUser = new Photographer({
       username,
       email,
-      password, // 生产环境建议存hash
+      password: hashedPassword,
       location,
       bio,
       avatar,
@@ -203,13 +297,206 @@ app.post('/api/register', async (req, res) => {
       price
     });
     await newUser.save();
-    res.status(200).json({ message: 'register success' });
+
+    // 生成JWT
+    const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: '7d' });
+
+    res.status(200).json({
+      message: '注册成功',
+      token,
+      photographer: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        avatar: newUser.avatar
+      }
+    });
   } catch (err) {
-    console.error('register failed:', err);
-    res.status(500).json({ message: 'register failed' });
+    console.error('注册失败:', err);
+    res.status(500).json({ message: '注册失败' });
   }
 });
 
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'register.html'));
+// 获取摄影师详情API
+app.get('/api/photographers/:id', async (req, res) => {
+  try {
+    const photographer = await Photographer.findById(req.params.id)
+      .select('-password'); // 不返回密码字段
+    
+    if (!photographer) {
+      return res.status(404).json({ message: '摄影师不存在' });
+    }
+
+    // 获取摄影师的预约数量
+    const completedSessions = await Booking.countDocuments({
+      photographerId: req.params.id,
+      status: 'accepted'
+    });
+
+    // 获取摄影师的评分（这里假设有评分系统，如果没有可以返回默认值）
+    const rating = 4.98; // 这里可以从评分系统获取实际评分
+
+    // 获取摄影师的评价
+    const reviews = [
+      {
+        name: "Sarah",
+        date: "March 2024",
+        avatar: "https://i.postimg.cc/vZ5xmDzV/temp-Image9tf-RVx.avifg",
+        content: "Sky not only took amazing photos but also showed me around the most beautiful spots in Seattle. Very professional and patient!"
+      },
+      {
+        name: "Mike",
+        date: "February 2024",
+        avatar: "https://i.postimg.cc/RFLTJXLw/temp-Image3l3t4-I.avif",
+        content: "Great experience! Sky knows how to guide poses and the photos turned out better than expected!"
+      }
+    ];
+
+    res.status(200).json({
+      ...photographer.toObject(),
+      completedSessions,
+      rating,
+      reviews
+    });
+  } catch (err) {
+    console.error('获取摄影师详情失败:', err);
+    res.status(500).json({ message: '获取摄影师详情失败' });
+  }
+});
+
+// 预约API
+app.post('/api/bookings', async (req, res) => {
+  try {
+    const { photographerId, date, startTime, endTime, price } = req.body;
+
+    // 验证必填字段
+    if (!photographerId || !date || !startTime || !endTime || !price) {
+      return res.status(400).json({ message: '缺少必要字段' });
+    }
+
+    // 验证摄影师是否存在
+    const photographer = await Photographer.findById(photographerId);
+    if (!photographer) {
+      return res.status(404).json({ message: '摄影师不存在' });
+    }
+
+    // 检查时间冲突
+    const existingBooking = await Booking.findOne({
+      photographerId,
+      date,
+      status: 'accepted',
+      $or: [
+        {
+          startTime: { $lt: endTime },
+          endTime: { $gt: startTime }
+        }
+      ]
+    });
+
+    if (existingBooking) {
+      return res.status(400).json({ message: '该时间段已被预约' });
+    }
+
+    // 创建预约
+    const newBooking = new Booking({
+      photographerId,
+      date,
+      startTime,
+      endTime,
+      price
+    });
+
+    await newBooking.save();
+
+    // 发送邮件通知摄影师（可选）
+    /*
+    await transporter.sendMail({
+      from: `"SnapMate" <${process.env.EMAIL_USER}>`,
+      to: photographer.email,
+      subject: '新的预约请求 📸',
+      html: `
+        <h2>Hi ${photographer.username},</h2>
+        <p>你收到了一个新的预约请求：</p>
+        <p>日期：${date}</p>
+        <p>时间：${startTime} - ${endTime}</p>
+        <p>价格：$${price}</p>
+        <br>
+        <p>请尽快处理这个请求。</p>
+      `,
+    });
+    */
+
+    res.status(200).json({ message: '预约请求已发送' });
+  } catch (err) {
+    console.error('预约失败:', err);
+    res.status(500).json({ message: '预约失败' });
+  }
+});
+
+// 获取摄影师的预约列表
+app.get('/api/bookings/:photographerId', async (req, res) => {
+  try {
+    const { photographerId } = req.params;
+    const bookings = await Booking.find({ photographerId })
+      .sort({ date: 1, startTime: 1 });
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error('获取预约列表失败:', err);
+    res.status(500).json({ message: '获取预约列表失败' });
+  }
+});
+
+// 更新预约状态
+app.put('/api/bookings/:bookingId', async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const { status } = req.body;
+
+    if (!['pending', 'accepted', 'rejected'].includes(status)) {
+      return res.status(400).json({ message: '无效的状态' });
+    }
+
+    const booking = await Booking.findByIdAndUpdate(
+      bookingId,
+      { status },
+      { new: true }
+    );
+
+    if (!booking) {
+      return res.status(404).json({ message: '预约不存在' });
+    }
+
+    res.status(200).json(booking);
+  } catch (err) {
+    console.error('更新预约状态失败:', err);
+    res.status(500).json({ message: '更新预约状态失败' });
+  }
+});
+
+// 更新摄影师信息API
+app.put('/api/photographers/:id', async (req, res) => {
+  try {
+    const updateFields = req.body;
+    const photographer = await Photographer.findByIdAndUpdate(
+      req.params.id,
+      updateFields,
+      { new: true }
+    );
+    if (!photographer) {
+      return res.status(404).json({ message: '摄影师不存在' });
+    }
+    res.status(200).json(photographer);
+  } catch (err) {
+    res.status(500).json({ message: '更新失败' });
+  }
+});
+
+// 让 /photographer 映射到 photographer.html
+app.get('/photographer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'photographer.html'));
+});
+
+// 让 /login 映射到 login.html
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });

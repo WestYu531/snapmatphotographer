@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Yang - Photography in Seattle</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Flatpickr 日期选择 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <!-- Lightbox CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cereal:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Cereal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .sticky-card {
+            position: sticky;
+            top: 2rem;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            .thumbnails-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .flex-col-mobile {
+                flex-direction: column;
+            }
+            .w-full-mobile {
+                width: 100%;
+            }
+            .gap-4-mobile {
+                gap: 1rem;
+            }
+            .sticky-card {
+                position: static;
+                margin-top: 2rem;
+            }
+        }
+        .thumbnails-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .image-hover {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .image-hover img {
+            transition: transform 0.3s ease;
+        }
+        .image-hover:hover img {
+            transform: scale(1.05);
+        }
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .image-hover:hover .image-overlay {
+            opacity: 1;
+        }
+        .category-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            backdrop-filter: blur(4px);
+        }
+        .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 50; display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: #fff; border-radius: 1rem; padding: 2rem; min-width: 320px; max-width: 90vw; }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed w-full bg-white border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2">
+            <div class="flex items-center justify-between">
+                <img src="https://i.postimg.cc/jjdfktHn/temp-Image-Ld-ABip.avif" alt="SnapMate Logo" class="h-10 sm:h-14">
+                <div class="flex items-center gap-4 sm:gap-6">
+                    
+                    <button onclick="window.location.href='Sanpmate.html'" class="bg-orange-500 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors text-sm sm:text-base">
+                        Back to Photographers
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容（去除左侧个人信息栏） -->
+    <main class="pt-16 sm:pt-20">
+        <!-- 照片展示（Airbnb风格，左右各占一半，动态渲染，原始排版） -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-8 flex items-center justify-between">
+          <div class="grid grid-cols-2 gap-4 rounded-2xl overflow-hidden h-[420px] flex-1">
+            <!-- 左侧大图 -->
+            <div class="h-full" id="portfolio-main"></div>
+            <!-- 右侧四张小图 -->
+            <div class="grid grid-cols-2 grid-rows-2 gap-4 h-full" id="portfolio-thumbs" style="height:420px;"></div>
+          </div>
+          <button id="editPortfolioBtn" class="ml-4 bg-white hover:bg-blue-100 text-blue-500 rounded-full p-2 shadow transition" title="Edit portfolio">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+          </button>
+        </div>
+        
+        <!-- 评价部分 -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex gap-8 sm:gap-12 flex-col-mobile">
+                <!-- 左侧信息（宽度减少） -->
+                <div class="w-full max-w-3xl">
+                    <!-- 摄影师信息（融合个人信息栏内容） -->
+                    <div class="pb-6 border-b">
+                        <div class="flex items-start gap-8">
+                            <!-- 头像区Edit按钮（悬浮icon） -->
+                            <div class="relative inline-block">
+                              <img id="avatar" src="" class="w-32 h-32 rounded-xl object-cover shadow-lg border-4 border-orange-200" alt="Avatar">
+                              <button id="editProfileFieldsBtn" class="absolute bottom-2 right-2 bg-white bg-opacity-80 hover:bg-blue-100 text-blue-500 rounded-full p-2 shadow transition" title="Edit profile">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+                              </button>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <h1 id="photographer-name" class="text-2xl font-extrabold text-gray-900"></h1>
+                                    <span id="location" class="text-gray-500"></span>
+                                    <span id="rating" class="text-orange-500 text-xl"></span>
+                                    <span id="review-count" class="text-gray-500 text-sm"></span>
+                                </div>
+                                <!-- bio区Edit按钮（icon） -->
+                                <div class="flex items-center gap-2 mb-2">
+                                  <span id="bio" class="text-gray-700"></span>
+                                  <button id="editBioBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500" title="Edit bio">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+                                  </button>
+                                </div>
+                                <div id="bioEditArea" class="mb-4 hidden">
+                                  <textarea id="bioInput" class="border rounded px-2 py-1 w-full"></textarea>
+                                  <button id="saveBioBtn" class="bg-orange-500 text-white px-3 py-1 rounded mt-2">Save</button>
+                                  <button id="cancelBioBtn" class="ml-2 text-gray-500">Cancel</button>
+                                </div>
+                                <!-- tag区Edit按钮（icon） -->
+                                <div class="flex flex-wrap gap-2 mb-2 items-center">
+                                  <div id="device-tags" class="flex flex-wrap gap-2"></div>
+                                  <button id="editTagsBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500 ml-2" title="Edit tags">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+                                  </button>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-2 items-center">
+                                  <div id="expertise-tags" class="flex flex-wrap gap-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 服务亮点 -->
+                    <div class="py-8 border-b">
+                      <div id="highlights-container" class="grid grid-cols-3 gap-6"></div>
+                    </div>
+                    <!-- 服务详情 -->
+                    <div class="py-8 border-b">
+                        <div class="flex items-center gap-2 mb-6">
+                          <h2 class="text-2xl font-semibold">Biography</h2>
+                          <button id="editBioMainBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500" title="Edit biography">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+                          </button>
+                        </div>
+                        <p id="bio-detail" class="text-gray-600 leading-relaxed mb-6"></p>
+                        <div id="bioMainEditArea" class="mb-6 hidden">
+                          <textarea id="bioMainInput" class="border rounded px-2 py-1 w-full" rows="4"></textarea>
+                          <button id="saveBioMainBtn" class="bg-orange-500 text-white px-3 py-1 rounded mt-2">Save</button>
+                          <button id="cancelBioMainBtn" class="ml-2 text-gray-500">Cancel</button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 mb-2">
+                              <h3 class="font-medium mb-0">Service Info:</h3>
+                              <button id="editServiceBtn" class="text-blue-500 underline text-sm hidden">Edit</button>
+                            </div>
+                            <div id="serviceEditArea" class="mb-4 hidden">
+                              <textarea id="serviceInput" class="border rounded px-2 py-1 w-full" rows="3"></textarea>
+                              <button id="saveServiceBtn" class="bg-orange-500 text-white px-3 py-1 rounded mt-2">Save</button>
+                              <button id="cancelServiceBtn" class="ml-2 text-gray-500">Cancel</button>
+                            </div>
+                            <div id="service-info" class="space-y-2 text-gray-600"></div>
+                        </div>
+                    </div>
+                    <!-- 动态expertise模块 -->
+                    <div class="py-8 border-b">
+                      <h2 class="text-2xl font-semibold mb-8">Photography Expertise</h2>
+                      <div class="relative" id="expertise-slider-wrapper">
+                        <button id="expertise-arrow-left" class="hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow rounded-full w-10 h-10 flex items-center justify-center text-2xl text-gray-500 hover:bg-orange-100 hover:text-orange-500 transition"><span>&#8592;</span></button>
+                        <div id="expertise-modules-wrapper">
+                          <div id="expertise-modules" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+                        </div>
+                        <button id="expertise-arrow-right" class="hidden absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow rounded-full w-10 h-10 flex items-center justify-center text-2xl text-gray-500 hover:bg-orange-100 hover:text-orange-500 transition"><span>&#8594;</span></button>
+                      </div>
+                    </div>
+                    <!-- 评价部分 -->
+                    <div class="py-8">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="text-orange-500">★</span>
+                            <span class="font-medium">4.98</span>
+                            <span class="text-gray-600">· 60 reviews</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-xl border">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <img src="https://i.postimg.cc/vZ5xmDzV/temp-Image9tf-RVx.avifg" alt="Reviewer" class="w-12 h-12 rounded-full object-cover">
+                                    <div>
+                                        <p class="font-medium">Sarah</p>
+                                        <p class="text-gray-500 text-sm">March 2024</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600">"Sky not only took amazing photos but also showed me around the most beautiful spots in Seattle. Very professional and patient!"</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <img src="https://i.postimg.cc/RFLTJXLw/temp-Image3l3t4-I.avif" alt="Reviewer" class="w-12 h-12 rounded-full object-cover">
+                                    <div>
+                                        <p class="font-medium">Mike</p>
+                                        <p class="text-gray-500 text-sm">February 2024</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600">"Great experience! Sky knows how to guide poses and the photos turned out better than expected!"</p>
+                            </div>
+                        </div>
+                        <button class="mt-6 px-6 py-2 border border-gray-900 rounded-lg hover:bg-gray-50">
+                            Show all 60 reviews
+                        </button>
+                    </div>
+                </div>
+                <!-- 右侧预约卡片，恢复为独立一列 -->
+                <div class="w-full-mobile sm:w-[420px] sm:min-w-[360px] sm:max-w-[420px]">
+                  <div class="sticky-card bg-white p-6 rounded-xl border shadow-lg min-w-[360px] max-w-[420px]">
+                    <div class="flex items-baseline justify-between mb-6">
+                      <div>
+                        <span class="text-2xl font-semibold">$40</span>
+                        <span class="text-gray-600">/hour</span>
+                      </div>
+                    </div>
+                    <div class="border rounded-lg p-4 mb-4">
+                      <label class="block text-sm font-medium mb-2">Select Date</label>
+                      <input id="card-date" class="w-full border rounded-lg px-3 py-2 mb-2" readonly>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                      <div class="border rounded-lg p-4">
+                        <label for="card-start-time" class="block text-sm font-medium mb-2">Start Time</label>
+                        <select id="card-start-time" class="w-full border-none text-lg focus:ring-0"></select>
+                      </div>
+                      <div class="border rounded-lg p-4">
+                        <label for="card-end-time" class="block text-sm font-medium mb-2">End Time</label>
+                        <select id="card-end-time" class="w-full border-none text-lg focus:ring-0">
+                          <option value="">Select start time first</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="mb-4 text-lg text-center">
+                      Estimated Price: <span id="estimated-price" class="font-semibold text-orange-500">$0</span>
+                    </div>
+                    <button id="sendRequestBtn" class="block w-full bg-orange-500 text-white text-center py-3 rounded-lg text-lg font-medium hover:bg-orange-600 transition-colors">
+                      Send a request
+                    </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+    <!-- 预约弹窗Modal -->
+    <div id="requestModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+      <div class="bg-white rounded-xl p-8 w-full max-w-md relative">
+        <button id="closeRequestModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+        <h2 class="text-xl font-semibold mb-4">Select Date & Time</h2>
+        <label class="block text-sm font-medium mb-2">Date</label>
+        <input id="modal-date" class="w-full border rounded-lg px-3 py-2 mb-4" readonly>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Start Time</label>
+            <select id="modal-start-time" class="w-full border rounded-lg px-2 py-2"></select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">End Time</label>
+            <select id="modal-end-time" class="w-full border rounded-lg px-2 py-2"></select>
+          </div>
+        </div>
+        <button id="sendRequestBtn" class="w-full bg-orange-500 text-white py-3 rounded-lg text-lg font-medium hover:bg-orange-600 transition-colors">
+          Send a request
+        </button>
+      </div>
+    </div>
+
+    <!-- Edit button and modal form -->
+    <button id="editProfileBtn" class="fixed bottom-8 right-8 z-50 bg-orange-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-orange-600 transition hidden">Edit My Profile</button>
+    <div id="editProfileModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+      <div class="bg-white rounded-xl p-8 w-full max-w-lg relative">
+        <button id="closeEditProfileModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+        <h2 class="text-xl font-semibold mb-4">Edit Photographer Profile</h2>
+        <form id="editProfileForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Biography</label>
+            <textarea id="editBio" class="w-full border rounded-lg px-3 py-2" rows="3"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Highlights (one per line, format: Title|Description)</label>
+            <textarea id="editHighlights" class="w-full border rounded-lg px-3 py-2" rows="3" placeholder="e.g. Professional Gear|Canon Film Camera"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Service Info (one per line)</label>
+            <textarea id="editServiceInfo" class="w-full border rounded-lg px-3 py-2" rows="3"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-orange-500 text-white py-3 rounded-lg text-lg font-medium hover:bg-orange-600 transition-colors">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 头像、名字、城市、设备tag、专长tag编辑按钮和弹窗 -->
+    <div id="editProfileFieldsModal" class="modal-bg hidden">
+      <div class="modal-content relative">
+        <button id="closeEditProfileFieldsModal" class="absolute top-2 right-4 text-2xl text-gray-400 hover:text-gray-700">&times;</button>
+        <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
+        <form id="editProfileFieldsForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Avatar</label>
+            <input type="file" id="editAvatarInput" accept="image/*" class="w-full" />
+            <img id="editAvatarPreview" src="" class="w-20 h-20 object-cover mt-2" style="display:none;" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Name</label>
+            <input type="text" id="editNameInput" class="w-full border rounded px-2 py-1" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Location</label>
+            <input type="text" id="editLocationInput" class="w-full border rounded px-2 py-1" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Devices (comma separated)</label>
+            <input type="text" id="editDevicesInput" class="w-full border rounded px-2 py-1" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Expertise (comma separated)</label>
+            <input type="text" id="editExpertiseInput" class="w-full border rounded px-2 py-1" />
+          </div>
+          <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-lg font-medium">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- 作品集编辑弹窗 -->
+    <div id="editPortfolioModal" class="modal-bg hidden">
+      <div class="modal-content relative" style="max-width:600px;">
+        <button id="closeEditPortfolioModal" class="absolute top-2 right-4 text-2xl text-gray-400 hover:text-gray-700">&times;</button>
+        <h2 class="text-xl font-semibold mb-4">Edit Portfolio</h2>
+        <div id="portfolioEditList" class="grid grid-cols-2 gap-4 mb-4"></div>
+        <input type="file" id="addPortfolioInput" accept="image/*" multiple class="mb-4" />
+        <button id="savePortfolioBtn" class="w-full bg-orange-500 text-white py-2 rounded-lg font-medium">Save</button>
+      </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      let photographerId = urlParams.get('id');
+      let data;
+      if (photographerId) {
+        // 获取指定摄影师
+        const res = await fetch(`/api/photographers/${photographerId}`);
+        data = await res.json();
+      } else {
+        // 获取当前登录摄影师
+        const token = localStorage.getItem('token');
+        if (!token) {
+          window.location.href = '/login';
+          return;
+        }
+        const res = await fetch('/api/me', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) {
+          window.location.href = '/login';
+          return;
+        }
+        data = await res.json();
+        photographerId = data._id; // 关键：赋值当前用户id
+      }
+
+      // 渲染头像、名字、tag、评分、城市
+      document.getElementById('avatar').src = data.avatar;
+      document.getElementById('photographer-name').textContent = data.username;
+      document.getElementById('location').textContent = data.location || '';
+      document.getElementById('rating').textContent = data.rating ? `★ ${data.rating}` : '';
+      document.getElementById('review-count').textContent = data.completedSessions ? `(${data.completedSessions} reviews)` : '';
+      // 动态设置页面title
+      document.title = `Snapmate — ${data.username}`;
+
+      // 设备tag
+      document.getElementById('device-tags').innerHTML = (data.devices||[]).map(d =>
+        `<span class=\"bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm\">${d}</span>`
+      ).join('');
+      // 专长tag
+      document.getElementById('expertise-tags').innerHTML = (data.expertise||[]).map(e =>
+        `<span class=\"bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm\">${e}</span>`
+      ).join('');
+
+      // 自我介绍
+      document.getElementById('bio').textContent = data.bio || '';
+
+      // 假设已登录本人，显示编辑按钮
+      document.getElementById('editBioBtn').classList.remove('hidden');
+
+      // 编辑自我介绍
+      document.getElementById('editBioBtn').onclick = function() {
+        document.getElementById('bioEditArea').classList.remove('hidden');
+        document.getElementById('bioInput').value = data.bio || '';
+        document.getElementById('bio').classList.add('hidden');
+        this.classList.add('hidden');
+      };
+      document.getElementById('cancelBioBtn').onclick = function() {
+        document.getElementById('bioEditArea').classList.add('hidden');
+        document.getElementById('bio').classList.remove('hidden');
+        document.getElementById('editBioBtn').classList.remove('hidden');
+      };
+      document.getElementById('saveBioBtn').onclick = async function() {
+        const newBio = document.getElementById('bioInput').value;
+        const resp = await fetch(`/api/photographers/${photographerId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bio: newBio })
+        });
+        if (resp.ok) {
+          document.getElementById('bio').textContent = newBio;
+          document.getElementById('bioEditArea').classList.add('hidden');
+          document.getElementById('bio').classList.remove('hidden');
+          document.getElementById('editBioBtn').classList.remove('hidden');
+        } else {
+          alert('Save failed');
+        }
+      };
+
+      // 渲染作品集（原始排版，右侧2x2宫格始终不变）
+      if (data.portfolio && data.portfolio.length > 0) {
+        // 左侧大图
+        document.getElementById('portfolio-main').innerHTML = `<img src='${data.portfolio[0]}' class='w-full h-full object-cover' alt='Main Photo' data-lightbox='gallery' style='aspect-ratio:1/1;min-height:0;' />`;
+        // 右侧4张小图（不足补空，全部正方形填满格子）
+        let thumbs = '';
+        for (let i = 1; i < 5; i++) {
+          if (data.portfolio[i]) {
+            thumbs += `<div class='w-full h-full aspect-square overflow-hidden flex items-center justify-center'><img src='${data.portfolio[i]}' class='w-full h-full object-cover' alt='Gallery ${i+1}' data-lightbox='gallery' /></div>`;
+          } else {
+            thumbs += `<div class='w-full h-full aspect-square bg-gray-100'></div>`;
+          }
+        }
+        document.getElementById('portfolio-thumbs').innerHTML = thumbs;
+      }
+
+      // expertise类型映射
+      const EXPERTISE_MAP = {
+        Portrait: {
+          img: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
+          title: 'Portrait',
+          desc: 'People & Portraits'
+        },
+        Landscape: {
+          img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+          title: 'Landscape',
+          desc: 'Nature & Scenery'
+        },
+        Graduation: {
+          img: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
+          title: 'Graduation',
+          desc: 'Academic Events'
+        },
+        Family: {
+          img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
+          title: 'Family',
+          desc: 'Group & Family'
+        },
+        Sports: {
+          img: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=400&q=80',
+          title: 'Sports',
+          desc: 'Action & Sports'
+        },
+        Events: {
+          img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80',
+          title: 'Events',
+          desc: 'Parties & Events'
+        },
+        Commercial: {
+          img: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
+          title: 'Commercial',
+          desc: 'Business & Products'
+        },
+        Party: {
+          img: 'https://images.unsplash.com/photo-1515168833906-d2a3b82b3029?auto=format&fit=crop&w=400&q=80',
+          title: 'Party',
+          desc: 'Unforgettable moments captured.'
+        },
+        Other: {
+          img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+          title: 'Other',
+          desc: 'Custom Style'
+        }
+      };
+      // 动态渲染expertise模块（卡片风格，超4个横向滑动，带箭头）
+      const expertiseArr = data.expertise || [];
+      const expertiseContainer = document.getElementById('expertise-modules');
+      const expertiseWrapper = document.getElementById('expertise-modules-wrapper');
+      const sliderWrapper = document.getElementById('expertise-slider-wrapper');
+      const arrowLeft = document.getElementById('expertise-arrow-left');
+      const arrowRight = document.getElementById('expertise-arrow-right');
+      const CARD_WIDTH = 220; // 卡片宽度
+      const CARD_GAP = 32;   // gap-8 = 2rem = 32px
+      const VISIBLE_COUNT = 3;
+      if (expertiseArr.length > VISIBLE_COUNT) {
+        expertiseContainer.className = 'flex gap-8 overflow-hidden pb-2 px-2';
+        expertiseContainer.style.width = (CARD_WIDTH * VISIBLE_COUNT + CARD_GAP * (VISIBLE_COUNT - 1)) + 'px';
+        arrowLeft.classList.remove('hidden');
+        arrowRight.classList.remove('hidden');
+      } else {
+        expertiseContainer.className = 'flex gap-8 pb-2 px-2';
+        expertiseContainer.style.width = '';
+        arrowLeft.classList.add('hidden');
+        arrowRight.classList.add('hidden');
+      }
+      expertiseContainer.innerHTML = expertiseArr.map(key => {
+        const item = EXPERTISE_MAP[key] || EXPERTISE_MAP['Other'];
+        return `
+          <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col min-w-[220px] max-w-[220px] flex-shrink-0" style="scroll-snap-align: start;">
+            <div class="h-36 w-full bg-gray-200 flex items-center justify-center overflow-hidden">
+              <img src="${item.img}" alt="${item.title}" class="object-cover w-full h-full">
+            </div>
+            <div class="p-4 flex-1 flex flex-col">
+              <div class="font-semibold text-base mb-1">${item.title}</div>
+              <div class="text-gray-500 text-sm flex-1">${item.desc}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      // 横滑逻辑
+      if (arrowLeft && arrowRight && expertiseContainer) {
+        let scrollIndex = 0;
+        arrowLeft.onclick = () => {
+          scrollIndex = Math.max(0, scrollIndex - VISIBLE_COUNT);
+          expertiseContainer.scrollTo({ left: scrollIndex * (CARD_WIDTH + CARD_GAP), behavior: 'smooth' });
+        };
+        arrowRight.onclick = () => {
+          const maxIndex = Math.max(0, expertiseArr.length - VISIBLE_COUNT);
+          scrollIndex = Math.min(maxIndex, scrollIndex + VISIBLE_COUNT);
+          expertiseContainer.scrollTo({ left: scrollIndex * (CARD_WIDTH + CARD_GAP), behavior: 'smooth' });
+        };
+      }
+
+      // 动态渲染服务亮点
+      renderHighlights(data.highlights);
+
+      // Biography和Service Info动态渲染
+      document.getElementById('bio-detail').textContent = data.bio || '';
+      const serviceInfoArr = data.serviceInfo || [];
+      const serviceInfoDiv = document.getElementById('service-info');
+      if (serviceInfoArr.length > 0) {
+        serviceInfoDiv.innerHTML = serviceInfoArr.map(item => `<div>• ${item}</div>`).join('');
+      } else {
+        serviceInfoDiv.innerHTML = '';
+      }
+
+      // Service Info编辑功能
+      document.getElementById('editServiceBtn').classList.remove('hidden');
+      document.getElementById('editServiceBtn').onclick = function() {
+        document.getElementById('serviceEditArea').classList.remove('hidden');
+        document.getElementById('serviceInput').value = (data.serviceInfo||[]).join('\n');
+        document.getElementById('service-info').classList.add('hidden');
+        this.classList.add('hidden');
+      };
+      document.getElementById('cancelServiceBtn').onclick = function() {
+        document.getElementById('serviceEditArea').classList.add('hidden');
+        document.getElementById('service-info').classList.remove('hidden');
+        document.getElementById('editServiceBtn').classList.remove('hidden');
+      };
+      document.getElementById('saveServiceBtn').onclick = async function() {
+        const newService = document.getElementById('serviceInput').value.split('\n').map(s=>s.trim()).filter(Boolean);
+        const resp = await fetch(`/api/photographers/${photographerId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ serviceInfo: newService })
+        });
+        if (resp.ok) {
+          document.getElementById('service-info').innerHTML = newService.map(item => `• ${item}`).join('<br>');
+          document.getElementById('serviceEditArea').classList.add('hidden');
+          document.getElementById('service-info').classList.remove('hidden');
+          document.getElementById('editServiceBtn').classList.remove('hidden');
+        } else {
+          alert('Save failed');
+        }
+      };
+
+      // 头像、名字、城市、设备tag、专长tag编辑弹窗逻辑
+      const editProfileFieldsBtn = document.getElementById('editProfileFieldsBtn');
+      const editProfileFieldsModal = document.getElementById('editProfileFieldsModal');
+      const closeEditProfileFieldsModal = document.getElementById('closeEditProfileFieldsModal');
+      const editProfileFieldsForm = document.getElementById('editProfileFieldsForm');
+      const editAvatarInput = document.getElementById('editAvatarInput');
+      const editAvatarPreview = document.getElementById('editAvatarPreview');
+      const editNameInput = document.getElementById('editNameInput');
+      const editLocationInput = document.getElementById('editLocationInput');
+      const editDevicesInput = document.getElementById('editDevicesInput');
+      const editExpertiseInput = document.getElementById('editExpertiseInput');
+      if (editProfileFieldsBtn) {
+        editProfileFieldsBtn.onclick = function() {
+          editProfileFieldsModal.classList.remove('hidden');
+          // 预填充
+          editAvatarPreview.style.display = 'none';
+          editAvatarInput.value = '';
+          editAvatarPreview.src = document.getElementById('avatar').src;
+          editNameInput.value = document.getElementById('photographer-name').textContent;
+          editLocationInput.value = document.getElementById('location').textContent;
+          editDevicesInput.value = (data.devices||[]).join(', ');
+          editExpertiseInput.value = (data.expertise||[]).join(', ');
+        };
+      }
+      if (closeEditProfileFieldsModal) closeEditProfileFieldsModal.onclick = () => editProfileFieldsModal.classList.add('hidden');
+      if (editAvatarInput) {
+        editAvatarInput.onchange = function(e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+              editAvatarPreview.src = ev.target.result;
+              editAvatarPreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+          }
+        };
+      }
+      if (editProfileFieldsForm) {
+        editProfileFieldsForm.onsubmit = async function(e) {
+          e.preventDefault();
+          // 上传头像
+          let avatarUrl = document.getElementById('avatar').src;
+          if (editAvatarInput.files[0]) {
+            const formData = new FormData();
+            formData.append('avatar', editAvatarInput.files[0]);
+            const res = await fetch('/api/upload/avatar', { method: 'POST', body: formData });
+            const result = await res.json();
+            avatarUrl = result.url;
+          }
+          // 组装数据
+          const updateData = {
+            avatar: avatarUrl,
+            username: editNameInput.value,
+            location: editLocationInput.value,
+            devices: editDevicesInput.value.split(',').map(s=>s.trim()).filter(Boolean),
+            expertise: editExpertiseInput.value.split(',').map(s=>s.trim()).filter(Boolean)
+          };
+          // 保存到后端
+          const resp = await fetch(`/api/photographers/${photographerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateData)
+          });
+          if (resp.ok) {
+            window.location.reload();
+          } else {
+            alert('Save failed');
+          }
+        };
+      }
+
+      // 作品集编辑弹窗逻辑（上传、删除、排序）
+      const editPortfolioBtn = document.getElementById('editPortfolioBtn');
+      const editPortfolioModal = document.getElementById('editPortfolioModal');
+      const closeEditPortfolioModal = document.getElementById('closeEditPortfolioModal');
+      const portfolioEditList = document.getElementById('portfolioEditList');
+      const addPortfolioInput = document.getElementById('addPortfolioInput');
+      const savePortfolioBtn = document.getElementById('savePortfolioBtn');
+      let portfolioArr = data.portfolio ? [...data.portfolio] : [];
+      function renderPortfolioEditList() {
+        portfolioEditList.innerHTML = portfolioArr.map((url, idx) => `
+          <div class='relative group' draggable='true' ondragstart='onPortfolioDragStart(event,${idx})' ondragover='onPortfolioDragOver(event,${idx})' ondrop='onPortfolioDrop(event,${idx})' ondragend='onPortfolioDragEnd(event)'>
+            <img src='${url}' class='w-full h-32 object-cover rounded mb-2'>
+            <button class='absolute top-1 right-1 bg-white text-red-500 rounded-full shadow px-2 py-1 text-xs font-bold group-hover:block' onclick='removePortfolioImg(${idx})'>×</button>
+          </div>
+        `).join('');
+      }
+      let dragSrcIdx = null;
+      window.onPortfolioDragStart = function(e, idx) {
+        dragSrcIdx = idx;
+        e.dataTransfer.effectAllowed = 'move';
+        e.target.style.opacity = '0.4';
+      };
+      window.onPortfolioDragOver = function(e, idx) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+      };
+      window.onPortfolioDrop = function(e, idx) {
+        e.preventDefault();
+        if (dragSrcIdx === null || dragSrcIdx === idx) return;
+        const moved = portfolioArr.splice(dragSrcIdx, 1)[0];
+        portfolioArr.splice(idx, 0, moved);
+        dragSrcIdx = null;
+        renderPortfolioEditList();
+      };
+      window.onPortfolioDragEnd = function(e) {
+        e.target.style.opacity = '';
+        dragSrcIdx = null;
+      };
+      window.removePortfolioImg = function(idx) {
+        portfolioArr.splice(idx,1);
+        renderPortfolioEditList();
+      };
+      if (editPortfolioBtn) {
+        editPortfolioBtn.onclick = function() {
+          editPortfolioModal.classList.remove('hidden');
+          renderPortfolioEditList();
+        };
+      }
+      if (closeEditPortfolioModal) closeEditPortfolioModal.onclick = () => editPortfolioModal.classList.add('hidden');
+      if (addPortfolioInput) {
+        addPortfolioInput.onchange = async function(e) {
+          const files = Array.from(e.target.files);
+          for (const file of files) {
+            const formData = new FormData();
+            formData.append('portfolio', file);
+            const res = await fetch('/api/upload/avatar', { method: 'POST', body: formData });
+            const result = await res.json();
+            portfolioArr.push(result.url);
+          }
+          renderPortfolioEditList();
+        };
+      }
+      if (savePortfolioBtn) {
+        savePortfolioBtn.onclick = async function() {
+          const resp = await fetch(`/api/photographers/${photographerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ portfolio: portfolioArr })
+          });
+          if (resp.ok) {
+            window.location.reload();
+          } else {
+            alert('Save failed');
+          }
+        };
+      }
+
+      // Biography主编辑功能
+      const editBioMainBtn = document.getElementById('editBioMainBtn');
+      const bioDetail = document.getElementById('bio-detail');
+      const bioMainEditArea = document.getElementById('bioMainEditArea');
+      const bioMainInput = document.getElementById('bioMainInput');
+      const saveBioMainBtn = document.getElementById('saveBioMainBtn');
+      const cancelBioMainBtn = document.getElementById('cancelBioMainBtn');
+      if (editBioMainBtn) {
+        editBioMainBtn.onclick = function() {
+          bioMainEditArea.classList.remove('hidden');
+          bioMainInput.value = bioDetail.textContent;
+          bioDetail.classList.add('hidden');
+          editBioMainBtn.classList.add('hidden');
+        };
+      }
+      if (cancelBioMainBtn) {
+        cancelBioMainBtn.onclick = function() {
+          bioMainEditArea.classList.add('hidden');
+          bioDetail.classList.remove('hidden');
+          editBioMainBtn.classList.remove('hidden');
+        };
+      }
+      if (saveBioMainBtn) {
+        saveBioMainBtn.onclick = async function() {
+          const newBio = bioMainInput.value;
+          const resp = await fetch(`/api/photographers/${photographerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ bio: newBio })
+          });
+          if (resp.ok) {
+            bioDetail.textContent = newBio;
+            bioMainEditArea.classList.add('hidden');
+            bioDetail.classList.remove('hidden');
+            editBioMainBtn.classList.remove('hidden');
+          } else {
+            alert('Save failed');
+          }
+        };
+      }
+
+      // ====== 预约卡片功能集成（英文） ======
+      const pricePerHour = data.price || 40;
+      const cardDateInput = document.getElementById('card-date');
+      const startTimeSelect = document.getElementById('card-start-time');
+      const endTimeSelect = document.getElementById('card-end-time');
+      const estimatedPriceSpan = document.getElementById('estimated-price');
+      const sendRequestBtn = document.getElementById('sendRequestBtn');
+
+      // 日期选择（flatpickr）
+      flatpickr(cardDateInput, {
+        minDate: 'today',
+        dateFormat: 'Y-m-d',
+      });
+
+      // 生成时间选项（8:00-20:00，每小时）
+      function generateTimeOptions() {
+        let options = '';
+        for (let h = 8; h <= 20; h++) {
+          const label = `${h}:00`;
+          options += `<option value="${h}">${label}</option>`;
+        }
+        return options;
+      }
+      startTimeSelect.innerHTML = '<option value="">Select</option>' + generateTimeOptions();
+      endTimeSelect.innerHTML = '<option value="">Select start time first</option>';
+
+      // 动态生成结束时间选项
+      startTimeSelect.onchange = function() {
+        const start = parseInt(this.value);
+        let options = '<option value="">Select</option>';
+        for (let h = start + 1; h <= 21; h++) {
+          options += `<option value="${h}">${h}:00</option>`;
+        }
+        endTimeSelect.innerHTML = options;
+        updateEstimatedPrice();
+      };
+      endTimeSelect.onchange = updateEstimatedPrice;
+
+      // 计算价格
+      function updateEstimatedPrice() {
+        const start = parseInt(startTimeSelect.value);
+        const end = parseInt(endTimeSelect.value);
+        let price = 0;
+        if (start && end && end > start) {
+          price = (end - start) * pricePerHour;
+        }
+        estimatedPriceSpan.textContent = `$${price}`;
+      }
+
+      // 预约提交
+      sendRequestBtn.onclick = async function() {
+        const date = cardDateInput.value;
+        const startTime = startTimeSelect.value;
+        const endTime = endTimeSelect.value;
+        const price = estimatedPriceSpan.textContent.replace('$', '') || 0;
+        if (!date || !startTime || !endTime || parseInt(endTime) <= parseInt(startTime)) {
+          alert('Please select a valid date and time range.');
+          return;
+        }
+        const res = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            photographerId,
+            date,
+            startTime: `${startTime}:00`,
+            endTime: `${endTime}:00`,
+            price
+          })
+        });
+        const result = await res.json();
+        if (res.ok) {
+          alert('Booking request sent successfully!');
+          // 可选：清空表单
+        } else {
+          alert('Booking failed: ' + (result.message || 'Unknown error'));
+        }
+      };
+      // ====== 预约卡片功能集成结束 ======
+    });
+
+    // 动态渲染服务亮点
+    function renderHighlights(highlights) {
+      const icons = [
+        // 相机
+        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>',
+        // 地图
+        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>',
+        // 星星
+        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>'
+      ];
+      const container = document.getElementById('highlights-container');
+      if (highlights && highlights.length > 0) {
+        container.innerHTML = highlights.map((h, idx) => {
+          // h: { title, desc } 或字符串
+          let title = h.title || h[0] || '';
+          let desc = h.desc || h[1] || '';
+          if (typeof h === 'string') {
+            // 兼容字符串格式
+            const parts = h.split('|');
+            title = parts[0] || '';
+            desc = parts[1] || '';
+          }
+          return `<div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[idx%icons.length]}</div><div><h3 class="font-medium">${title}</h3><p class="text-gray-600 text-sm">${desc}</p></div></div>`;
+        }).join('');
+      } else {
+        // 没有后端数据时，保留原有静态内容
+        container.innerHTML = `
+          <div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[0]}</div><div><h3 class="font-medium">Professional Gear</h3><p class="text-gray-600 text-sm">Canon Film Camera</p></div></div>
+          <div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[1]}</div><div><h3 class="font-medium">Location Guide</h3><p class="text-gray-600 text-sm">Seattle Landmarks</p></div></div>
+          <div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[2]}</div><div><h3 class="font-medium">Top Rated</h3><p class="text-gray-600 text-sm">4.98 out of 5</p></div></div>
+        `;
+      }
+    }
+    </script>
+</body>
+</html>
