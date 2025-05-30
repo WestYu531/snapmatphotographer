@@ -98,6 +98,9 @@ const PhotographerSchema = new mongoose.Schema({
     title: String,
     desc: String
   }], // 新增 服务亮点
+  title: String,
+  gear: String,
+  locationguide: String,
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -294,7 +297,10 @@ app.post('/api/register', async (req, res) => {
       portfolio,
       devices,
       expertise,
-      price
+      price,
+      title: "",
+      gear: "",
+      locationguide: ""
     });
     await newUser.save();
 

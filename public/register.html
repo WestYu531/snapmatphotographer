@@ -469,7 +469,7 @@
       <div class="max-w-5xl mx-auto w-full p-6 lg:p-8 space-y-8">
         <div>
           <h2 class="text-3xl lg:text-4xl font-bold leading-snug">Create Your Own Gallery</h2>
-          <p class="text-gray-600 mt-2">Upload 1 to 5 of your best photos. These will be displayed on your profile page.</p>
+          <p class="text-gray-600 mt-2">Upload 1 to 20 of your best photos. These will be displayed on your profile page.</p>
         </div>
 
         <!-- 上传头像 -->
@@ -658,8 +658,8 @@ function previewPortfolio(event) {
   coverContainer.innerHTML = "";
   thumbnailsContainer.innerHTML = "";
 
-  if (files.length > 5) {
-    alert("最多只能上传 5 张图片");
+  if (files.length > 20) {
+    alert("最多只能上传 20 张图片");
     event.target.value = "";
     return;
   }
@@ -1064,20 +1064,24 @@ if (getStartedBtn) {
 }
 
 // 地点自动补全逻辑
-const cityList = [
-  'Davis, CA',
-  'Los Angeles, CA',
-  'San Francisco, CA',
-  'New York, NY',
-  'Seattle, WA',
-  'Berkeley, CA',
-  'San Diego, CA',
-  'Chicago, IL',
-  'Boston, MA'
-  // ...可继续添加
-];
+let cityList = [];
 const locationInput = document.getElementById('locationInput');
 const suggestionsBox = document.getElementById('locationSuggestions');
+
+// 从 JSON 文件加载城市数据
+async function loadCities() {
+  try {
+    const response = await fetch('/data/cities.json');
+    const data = await response.json();
+    cityList = data.cities.map(city => city.fullName);
+  } catch (error) {
+    console.error('Error loading cities:', error);
+  }
+}
+
+// 页面加载时获取城市数据
+document.addEventListener('DOMContentLoaded', loadCities);
+
 if (locationInput && suggestionsBox) {
   locationInput.addEventListener('input', function() {
     const value = this.value.trim().toLowerCase();

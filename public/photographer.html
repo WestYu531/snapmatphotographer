@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
     <!-- Lightbox CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cereal:wght@400;500;600&display=swap" rel="stylesheet">
@@ -123,9 +124,11 @@
             <!-- 右侧四张小图 -->
             <div class="grid grid-cols-2 grid-rows-2 gap-4 h-full" id="portfolio-thumbs" style="height:420px;"></div>
           </div>
-          <button id="editPortfolioBtn" class="ml-4 bg-white hover:bg-blue-100 text-blue-500 rounded-full p-2 shadow transition" title="Edit portfolio">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
-          </button>
+          <div class="flex flex-col gap-2">
+            <button id="editPortfolioBtn" class="bg-white hover:bg-blue-100 text-blue-500 rounded-full p-2 shadow transition" title="Edit portfolio">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+            </button>
+          </div>
         </div>
         
         <!-- 评价部分 -->
@@ -150,6 +153,17 @@
                                     <span id="rating" class="text-orange-500 text-xl"></span>
                                     <span id="review-count" class="text-gray-500 text-sm"></span>
                                 </div>
+                                <div class="flex items-center gap-2 mb-2">
+                                  <span id="photographer-title" class="text-lg text-gray-700 font-medium"></span>
+                                  <button id="editTitleBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500" title="Edit title">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+                                  </button>
+                                </div>
+                                <div id="titleEditArea" class="mb-2 hidden">
+                                  <input id="titleInput" class="border rounded px-2 py-1 w-full" placeholder="e.g. Travel Photographer / Wedding Photographer / Portrait Expert" />
+                                  <button id="saveTitleBtn" class="bg-orange-500 text-white px-3 py-1 rounded mt-2">Save</button>
+                                  <button id="cancelTitleBtn" class="ml-2 text-gray-500">Cancel</button>
+                                </div>
                                 <!-- bio区Edit按钮（icon） -->
                                 <div class="flex items-center gap-2 mb-2">
                                   <span id="bio" class="text-gray-700"></span>
@@ -165,18 +179,43 @@
                                 <!-- tag区Edit按钮（icon） -->
                                 <div class="flex flex-wrap gap-2 mb-2 items-center">
                                   <div id="device-tags" class="flex flex-wrap gap-2"></div>
-                                  <button id="editTagsBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500 ml-2" title="Edit tags">
+                                  <button id="editDeviceTagsBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500 ml-2" title="Edit device tags">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
                                   </button>
                                 </div>
+                                <div id="deviceTagsEditArea" class="mb-2 hidden">
+                                  <div id="deviceTagsOptions" class="flex flex-wrap gap-2 mb-2"></div>
+                                  <button id="saveDeviceTagsBtn" class="bg-orange-500 text-white px-3 py-1 rounded mt-2">Save</button>
+                                  <button id="cancelDeviceTagsBtn" class="ml-2 text-gray-500">Cancel</button>
+                                </div>
                                 <div class="flex flex-wrap gap-2 mb-2 items-center">
                                   <div id="expertise-tags" class="flex flex-wrap gap-2"></div>
+                                  <button id="editExpertiseTagsBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500 ml-2" title="Edit expertise tags">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+                                  </button>
+                                </div>
+                                <div id="expertiseTagsEditArea" class="mb-2 hidden">
+                                  <div id="expertiseTagsOptions" class="flex flex-wrap gap-2 mb-2"></div>
+                                  <button id="saveExpertiseTagsBtn" class="bg-blue-500 text-white px-3 py-1 rounded mt-2">Save</button>
+                                  <button id="cancelExpertiseTagsBtn" class="ml-2 text-gray-500">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- 服务亮点 -->
                     <div class="py-8 border-b">
+                      <div class="flex items-center justify-between mb-4">
+                        <div class="text-2xl font-semibold">Service Highlights</div>
+                        <button id="editHighlightsBtn" class="p-1 rounded-full hover:bg-blue-100 text-blue-500" title="Edit service highlights">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+                        </button>
+                      </div>
+                      <div id="highlightsEditArea" class="mb-4 hidden">
+                        <input id="gearInput" class="border rounded px-2 py-1 w-full mb-2" placeholder="e.g. Canon Film Camera" />
+                        <input id="locationguideInput" class="border rounded px-2 py-1 w-full mb-2" placeholder="e.g. Seattle Landmarks" />
+                        <button id="saveHighlightsBtn" class="bg-orange-500 text-white px-3 py-1 rounded mt-2">Save</button>
+                        <button id="cancelHighlightsBtn" class="ml-2 text-gray-500">Cancel</button>
+                      </div>
                       <div id="highlights-container" class="grid grid-cols-3 gap-6"></div>
                     </div>
                     <!-- 服务详情 -->
@@ -358,14 +397,6 @@
             <label class="block text-sm font-medium mb-1">Location</label>
             <input type="text" id="editLocationInput" class="w-full border rounded px-2 py-1" />
           </div>
-          <div>
-            <label class="block text-sm font-medium mb-1">Devices (comma separated)</label>
-            <input type="text" id="editDevicesInput" class="w-full border rounded px-2 py-1" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium mb-1">Expertise (comma separated)</label>
-            <input type="text" id="editExpertiseInput" class="w-full border rounded px-2 py-1" />
-          </div>
           <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-lg font-medium">Save</button>
         </form>
       </div>
@@ -378,6 +409,15 @@
         <div id="portfolioEditList" class="grid grid-cols-2 gap-4 mb-4"></div>
         <input type="file" id="addPortfolioInput" accept="image/*" multiple class="mb-4" />
         <button id="savePortfolioBtn" class="w-full bg-orange-500 text-white py-2 rounded-lg font-medium">Save</button>
+      </div>
+    </div>
+
+    <!-- 查看全部作品集弹窗 -->
+    <div id="viewAllPortfolioModal" class="modal-bg hidden">
+      <div class="modal-content relative" style="max-width:90vw; width:1200px;">
+        <button id="closeViewAllPortfolioModal" class="absolute top-2 right-4 text-2xl text-gray-400 hover:text-gray-700">&times;</button>
+        <h2 class="text-xl font-semibold mb-4">All Photos</h2>
+        <div id="allPortfolioGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[80vh] overflow-y-auto p-4"></div>
       </div>
     </div>
 
@@ -469,7 +509,19 @@
         let thumbs = '';
         for (let i = 1; i < 5; i++) {
           if (data.portfolio[i]) {
-            thumbs += `<div class='w-full h-full aspect-square overflow-hidden flex items-center justify-center'><img src='${data.portfolio[i]}' class='w-full h-full object-cover' alt='Gallery ${i+1}' data-lightbox='gallery' /></div>`;
+            if (i === 4 && data.portfolio.length > 5) {
+              thumbs += `
+                <div class='w-full h-full aspect-square overflow-hidden relative group'>
+                  <img src='${data.portfolio[i]}' class='w-full h-full object-cover' alt='Gallery ${i+1}' data-lightbox='gallery' />
+                  <div class='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
+                    <button onclick='showAllPortfolioModal()' class='bg-white text-orange-500 px-4 py-2 rounded-lg font-medium hover:bg-orange-50 transition-colors'>
+                      View All Photos
+                    </button>
+                  </div>
+                </div>`;
+            } else {
+              thumbs += `<div class='w-full h-full aspect-square overflow-hidden flex items-center justify-center'><img src='${data.portfolio[i]}' class='w-full h-full object-cover' alt='Gallery ${i+1}' data-lightbox='gallery' /></div>`;
+            }
           } else {
             thumbs += `<div class='w-full h-full aspect-square bg-gray-100'></div>`;
           }
@@ -575,7 +627,7 @@
       }
 
       // 动态渲染服务亮点
-      renderHighlights(data.highlights);
+      renderHighlights();
 
       // Biography和Service Info动态渲染
       document.getElementById('bio-detail').textContent = data.bio || '';
@@ -626,8 +678,6 @@
       const editAvatarPreview = document.getElementById('editAvatarPreview');
       const editNameInput = document.getElementById('editNameInput');
       const editLocationInput = document.getElementById('editLocationInput');
-      const editDevicesInput = document.getElementById('editDevicesInput');
-      const editExpertiseInput = document.getElementById('editExpertiseInput');
       if (editProfileFieldsBtn) {
         editProfileFieldsBtn.onclick = function() {
           editProfileFieldsModal.classList.remove('hidden');
@@ -637,8 +687,6 @@
           editAvatarPreview.src = document.getElementById('avatar').src;
           editNameInput.value = document.getElementById('photographer-name').textContent;
           editLocationInput.value = document.getElementById('location').textContent;
-          editDevicesInput.value = (data.devices||[]).join(', ');
-          editExpertiseInput.value = (data.expertise||[]).join(', ');
         };
       }
       if (closeEditProfileFieldsModal) closeEditProfileFieldsModal.onclick = () => editProfileFieldsModal.classList.add('hidden');
@@ -671,9 +719,7 @@
           const updateData = {
             avatar: avatarUrl,
             username: editNameInput.value,
-            location: editLocationInput.value,
-            devices: editDevicesInput.value.split(',').map(s=>s.trim()).filter(Boolean),
-            expertise: editExpertiseInput.value.split(',').map(s=>s.trim()).filter(Boolean)
+            location: editLocationInput.value
           };
           // 保存到后端
           const resp = await fetch(`/api/photographers/${photographerId}`, {
@@ -886,39 +932,246 @@
         }
       };
       // ====== 预约卡片功能集成结束 ======
-    });
 
-    // 动态渲染服务亮点
-    function renderHighlights(highlights) {
-      const icons = [
-        // 相机
-        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>',
-        // 地图
-        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>',
-        // 星星
-        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>'
-      ];
-      const container = document.getElementById('highlights-container');
-      if (highlights && highlights.length > 0) {
-        container.innerHTML = highlights.map((h, idx) => {
-          // h: { title, desc } 或字符串
-          let title = h.title || h[0] || '';
-          let desc = h.desc || h[1] || '';
-          if (typeof h === 'string') {
-            // 兼容字符串格式
-            const parts = h.split('|');
-            title = parts[0] || '';
-            desc = parts[1] || '';
-          }
-          return `<div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[idx%icons.length]}</div><div><h3 class="font-medium">${title}</h3><p class="text-gray-600 text-sm">${desc}</p></div></div>`;
-        }).join('');
-      } else {
-        // 没有后端数据时，保留原有静态内容
+      // 1. 在数据加载后保存portfolio到window，方便全局访问
+      window.portfolioData = data.portfolio;
+
+      // 2. 定义showAllPortfolioModal函数
+      function showAllPortfolioModal() {
+        const viewAllPortfolioModal = document.getElementById('viewAllPortfolioModal');
+        const allPortfolioGrid = document.getElementById('allPortfolioGrid');
+        viewAllPortfolioModal.classList.remove('hidden');
+        allPortfolioGrid.innerHTML = (window.portfolioData || []).map((url, index) => `
+          <div class="relative group aspect-square overflow-hidden rounded-lg">
+            <a href="${url}" data-lightbox="gallery-all" data-title="Photo ${index + 1}">
+              <img src="${url}" alt="Gallery ${index + 1}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            </a>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300"></div>
+          </div>
+        `).join('');
+        // 兼容多种Lightbox2初始化方式
+        if (window.lightbox && typeof window.lightbox.init === 'function') {
+          window.lightbox.init();
+        }
+        if (window.lightbox && typeof window.lightbox.reload === 'function') {
+          window.lightbox.reload();
+        }
+        if (window.Lightbox && typeof window.Lightbox.init === 'function') {
+          window.Lightbox.init();
+        }
+      }
+
+      // 绑定关闭全部照片弹窗按钮
+      const closeViewAllPortfolioModal = document.getElementById('closeViewAllPortfolioModal');
+      if (closeViewAllPortfolioModal) {
+        closeViewAllPortfolioModal.onclick = function() {
+          document.getElementById('viewAllPortfolioModal').classList.add('hidden');
+        };
+      }
+
+      // 服务亮点渲染与编辑
+      function renderHighlights() {
+        const container = document.getElementById('highlights-container');
         container.innerHTML = `
-          <div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[0]}</div><div><h3 class="font-medium">Professional Gear</h3><p class="text-gray-600 text-sm">Canon Film Camera</p></div></div>
-          <div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[1]}</div><div><h3 class="font-medium">Location Guide</h3><p class="text-gray-600 text-sm">Seattle Landmarks</p></div></div>
-          <div class="flex items-start gap-4"><div class="p-2 bg-gray-50 rounded-lg">${icons[2]}</div><div><h3 class="font-medium">Top Rated</h3><p class="text-gray-600 text-sm">4.98 out of 5</p></div></div>
+          <div class="flex items-start gap-4">
+            <div class="p-2 bg-gray-50 rounded-lg">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <div>
+              <h3 class="font-medium">Professional Gear</h3>
+              <p class="text-gray-600 text-sm" id="gear-text">${data.gear || ''}</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="p-2 bg-gray-50 rounded-lg">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <div>
+              <h3 class="font-medium">Location Guide</h3>
+              <p class="text-gray-600 text-sm" id="locationguide-text">${data.locationguide || ''}</p>
+            </div>
+          </div>
         `;
+      }
+      // 初始渲染
+      renderHighlights();
+      // 编辑按钮
+      document.getElementById('editHighlightsBtn').onclick = function() {
+        document.getElementById('highlightsEditArea').classList.remove('hidden');
+        document.getElementById('gearInput').value = data.gear || '';
+        document.getElementById('locationguideInput').value = data.locationguide || '';
+      };
+      document.getElementById('cancelHighlightsBtn').onclick = function() {
+        document.getElementById('highlightsEditArea').classList.add('hidden');
+      };
+      document.getElementById('saveHighlightsBtn').onclick = async function() {
+        const newGear = document.getElementById('gearInput').value;
+        const newLocationGuide = document.getElementById('locationguideInput').value;
+        const resp = await fetch(`/api/photographers/${photographerId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ gear: newGear, locationguide: newLocationGuide })
+        });
+        if (resp.ok) {
+          data.gear = newGear;
+          data.locationguide = newLocationGuide;
+          renderHighlights();
+          document.getElementById('highlightsEditArea').classList.add('hidden');
+        } else {
+          alert('Save failed');
+        }
+      };
+
+      // 设备/专长tag多选按钮可选项
+      const DEVICE_OPTIONS = [
+        "Film camera", "Instant photo", "Drone", "Other", "Digital camera", "CCD", "Video camera", "Vlogging camera"
+      ];
+      const EXPERTISE_OPTIONS = [
+        "Landscape", "Graduation", "Family", "Party", "Commercial", "Other", "Portrait", "Sports", "Events"
+      ];
+      function renderDeviceTagOptions(selected) {
+        const container = document.getElementById('deviceTagsOptions');
+        container.innerHTML = DEVICE_OPTIONS.map(opt => `
+          <button type="button"
+            class="px-3 py-1 rounded-full border ${selected.includes(opt) ? 'bg-orange-500 text-white' : 'bg-white text-orange-500 border-orange-500'}"
+            data-value="${opt}"
+            onclick="toggleDeviceTagOption(this)">
+            ${opt}
+          </button>
+        `).join('');
+      }
+      function renderExpertiseTagOptions(selected) {
+        const container = document.getElementById('expertiseTagsOptions');
+        container.innerHTML = EXPERTISE_OPTIONS.map(opt => `
+          <button type="button"
+            class="px-3 py-1 rounded-full border ${selected.includes(opt) ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-blue-500'}"
+            data-value="${opt}"
+            onclick="toggleExpertiseTagOption(this)">
+            ${opt}
+          </button>
+        `).join('');
+      }
+      window.toggleDeviceTagOption = function(btn) {
+        btn.classList.toggle('bg-orange-500');
+        btn.classList.toggle('text-white');
+        btn.classList.toggle('bg-white');
+        btn.classList.toggle('text-orange-500');
+      };
+      window.toggleExpertiseTagOption = function(btn) {
+        btn.classList.toggle('bg-blue-500');
+        btn.classList.toggle('text-white');
+        btn.classList.toggle('bg-white');
+        btn.classList.toggle('text-blue-500');
+      };
+      // 编辑按钮事件里调用渲染
+      document.getElementById('editDeviceTagsBtn').onclick = function() {
+        renderDeviceTagOptions(data.devices || []);
+        document.getElementById('deviceTagsEditArea').classList.remove('hidden');
+        document.getElementById('device-tags').classList.add('hidden');
+        this.classList.add('hidden');
+      };
+      document.getElementById('editExpertiseTagsBtn').onclick = function() {
+        renderExpertiseTagOptions(data.expertise || []);
+        document.getElementById('expertiseTagsEditArea').classList.remove('hidden');
+        document.getElementById('expertise-tags').classList.add('hidden');
+        this.classList.add('hidden');
+      };
+      // 保存时收集所有高亮按钮的data-value
+      document.getElementById('saveDeviceTagsBtn').onclick = async function() {
+        const selected = Array.from(document.querySelectorAll('#deviceTagsOptions button.bg-orange-500')).map(btn => btn.getAttribute('data-value'));
+        const resp = await fetch(`/api/photographers/${photographerId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ devices: selected })
+        });
+        if (resp.ok) {
+          document.getElementById('device-tags').innerHTML = selected.map(d =>
+            `<span class=\"bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm\">${d}</span>`
+          ).join('');
+          document.getElementById('deviceTagsEditArea').classList.add('hidden');
+          document.getElementById('device-tags').classList.remove('hidden');
+          document.getElementById('editDeviceTagsBtn').classList.remove('hidden');
+          data.devices = selected;
+        } else {
+          alert('Save failed');
+        }
+      };
+      document.getElementById('saveExpertiseTagsBtn').onclick = async function() {
+        const selected = Array.from(document.querySelectorAll('#expertiseTagsOptions button.bg-blue-500')).map(btn => btn.getAttribute('data-value'));
+        const resp = await fetch(`/api/photographers/${photographerId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ expertise: selected })
+        });
+        if (resp.ok) {
+          document.getElementById('expertise-tags').innerHTML = selected.map(e =>
+            `<span class=\"bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm\">${e}</span>`
+          ).join('');
+          document.getElementById('expertiseTagsEditArea').classList.add('hidden');
+          document.getElementById('expertise-tags').classList.remove('hidden');
+          document.getElementById('editExpertiseTagsBtn').classList.remove('hidden');
+          data.expertise = selected;
+        } else {
+          alert('Save failed');
+        }
+      };
+
+      // 渲染title
+      document.getElementById('photographer-title').textContent = data.title || '';
+      // 编辑title逻辑
+      document.getElementById('editTitleBtn').onclick = function() {
+        document.getElementById('titleEditArea').classList.remove('hidden');
+        document.getElementById('photographer-title').classList.add('hidden');
+        this.classList.add('hidden');
+        document.getElementById('titleInput').value = data.title || '';
+      };
+      document.getElementById('cancelTitleBtn').onclick = function() {
+        document.getElementById('titleEditArea').classList.add('hidden');
+        document.getElementById('photographer-title').classList.remove('hidden');
+        document.getElementById('editTitleBtn').classList.remove('hidden');
+      };
+      document.getElementById('saveTitleBtn').onclick = async function() {
+        const newTitle = document.getElementById('titleInput').value;
+        const resp = await fetch(`/api/photographers/${photographerId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: newTitle })
+        });
+        if (resp.ok) {
+          document.getElementById('photographer-title').textContent = newTitle;
+          document.getElementById('titleEditArea').classList.add('hidden');
+          document.getElementById('photographer-title').classList.remove('hidden');
+          document.getElementById('editTitleBtn').classList.remove('hidden');
+          data.title = newTitle;
+        } else {
+          alert('Save failed');
+        }
+      };
+    });
+    </script>
+    <script>
+    // 让showAllPortfolioModal在全局可用
+    function showAllPortfolioModal() {
+      const viewAllPortfolioModal = document.getElementById('viewAllPortfolioModal');
+      const allPortfolioGrid = document.getElementById('allPortfolioGrid');
+      viewAllPortfolioModal.classList.remove('hidden');
+      allPortfolioGrid.innerHTML = (window.portfolioData || []).map((url, index) => `
+        <div class="relative group aspect-square overflow-hidden rounded-lg">
+          <a href="${url}" data-lightbox="gallery-all" data-title="Photo ${index + 1}">
+            <img src="${url}" alt="Gallery ${index + 1}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          </a>
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300"></div>
+        </div>
+      `).join('');
+      // 兼容多种Lightbox2初始化方式
+      if (window.lightbox && typeof window.lightbox.init === 'function') {
+        window.lightbox.init();
+      }
+      if (window.lightbox && typeof window.lightbox.reload === 'function') {
+        window.lightbox.reload();
+      }
+      if (window.Lightbox && typeof window.Lightbox.init === 'function') {
+        window.Lightbox.init();
       }
     }
     </script>

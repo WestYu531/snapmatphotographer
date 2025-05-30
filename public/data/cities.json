@@ -1,0 +1,1049 @@
+{
+  "cities": [
+    {
+      "name": "Davis",
+      "state": "CA",
+      "fullName": "Davis, CA"
+    },
+    {
+      "name": "Los Angeles",
+      "state": "CA",
+      "fullName": "Los Angeles, CA"
+    },
+    {
+      "name": "San Francisco",
+      "state": "CA",
+      "fullName": "San Francisco, CA"
+    },
+    {
+      "name": "Berkeley",
+      "state": "CA",
+      "fullName": "Berkeley, CA"
+    },
+    {
+      "name": "San Diego",
+      "state": "CA",
+      "fullName": "San Diego, CA"
+    },
+    {
+      "name": "Sacramento",
+      "state": "CA",
+      "fullName": "Sacramento, CA"
+    },
+    {
+      "name": "San Jose",
+      "state": "CA",
+      "fullName": "San Jose, CA"
+    },
+    {
+      "name": "Oakland",
+      "state": "CA",
+      "fullName": "Oakland, CA"
+    },
+    {
+      "name": "Fresno",
+      "state": "CA",
+      "fullName": "Fresno, CA"
+    },
+    {
+      "name": "Long Beach",
+      "state": "CA",
+      "fullName": "Long Beach, CA"
+    },
+    {
+      "name": "Anaheim",
+      "state": "CA",
+      "fullName": "Anaheim, CA"
+    },
+    {
+      "name": "Santa Ana",
+      "state": "CA",
+      "fullName": "Santa Ana, CA"
+    },
+    {
+      "name": "Riverside",
+      "state": "CA",
+      "fullName": "Riverside, CA"
+    },
+    {
+      "name": "Bakersfield",
+      "state": "CA",
+      "fullName": "Bakersfield, CA"
+    },
+    {
+      "name": "Stockton",
+      "state": "CA",
+      "fullName": "Stockton, CA"
+    },
+    {
+      "name": "Irvine",
+      "state": "CA",
+      "fullName": "Irvine, CA"
+    },
+    {
+      "name": "Modesto",
+      "state": "CA",
+      "fullName": "Modesto, CA"
+    },
+    {
+      "name": "Oxnard",
+      "state": "CA",
+      "fullName": "Oxnard, CA"
+    },
+    {
+      "name": "Fontana",
+      "state": "CA",
+      "fullName": "Fontana, CA"
+    },
+    {
+      "name": "Moreno Valley",
+      "state": "CA",
+      "fullName": "Moreno Valley, CA"
+    },
+    {
+      "name": "Huntington Beach",
+      "state": "CA",
+      "fullName": "Huntington Beach, CA"
+    },
+    {
+      "name": "Glendale",
+      "state": "CA",
+      "fullName": "Glendale, CA"
+    },
+    {
+      "name": "Santa Clarita",
+      "state": "CA",
+      "fullName": "Santa Clarita, CA"
+    },
+    {
+      "name": "Garden Grove",
+      "state": "CA",
+      "fullName": "Garden Grove, CA"
+    },
+    {
+      "name": "Oceanside",
+      "state": "CA",
+      "fullName": "Oceanside, CA"
+    },
+    {
+      "name": "Rancho Cucamonga",
+      "state": "CA",
+      "fullName": "Rancho Cucamonga, CA"
+    },
+    {
+      "name": "Santa Rosa",
+      "state": "CA",
+      "fullName": "Santa Rosa, CA"
+    },
+    {
+      "name": "Ontario",
+      "state": "CA",
+      "fullName": "Ontario, CA"
+    },
+    {
+      "name": "Elk Grove",
+      "state": "CA",
+      "fullName": "Elk Grove, CA"
+    },
+    {
+      "name": "Corona",
+      "state": "CA",
+      "fullName": "Corona, CA"
+    },
+    {
+      "name": "Lancaster",
+      "state": "CA",
+      "fullName": "Lancaster, CA"
+    },
+    {
+      "name": "Palmdale",
+      "state": "CA",
+      "fullName": "Palmdale, CA"
+    },
+    {
+      "name": "Salinas",
+      "state": "CA",
+      "fullName": "Salinas, CA"
+    },
+    {
+      "name": "Pomona",
+      "state": "CA",
+      "fullName": "Pomona, CA"
+    },
+    {
+      "name": "Hayward",
+      "state": "CA",
+      "fullName": "Hayward, CA"
+    },
+    {
+      "name": "Escondido",
+      "state": "CA",
+      "fullName": "Escondido, CA"
+    },
+    {
+      "name": "Sunnyvale",
+      "state": "CA",
+      "fullName": "Sunnyvale, CA"
+    },
+    {
+      "name": "Torrance",
+      "state": "CA",
+      "fullName": "Torrance, CA"
+    },
+    {
+      "name": "Pasadena",
+      "state": "CA",
+      "fullName": "Pasadena, CA"
+    },
+    {
+      "name": "Fullerton",
+      "state": "CA",
+      "fullName": "Fullerton, CA"
+    },
+    {
+      "name": "Orange",
+      "state": "CA",
+      "fullName": "Orange, CA"
+    },
+    {
+      "name": "Thousand Oaks",
+      "state": "CA",
+      "fullName": "Thousand Oaks, CA"
+    },
+    {
+      "name": "Visalia",
+      "state": "CA",
+      "fullName": "Visalia, CA"
+    },
+    {
+      "name": "Simi Valley",
+      "state": "CA",
+      "fullName": "Simi Valley, CA"
+    },
+    {
+      "name": "Concord",
+      "state": "CA",
+      "fullName": "Concord, CA"
+    },
+    {
+      "name": "Roseville",
+      "state": "CA",
+      "fullName": "Roseville, CA"
+    },
+    {
+      "name": "Santa Clara",
+      "state": "CA",
+      "fullName": "Santa Clara, CA"
+    },
+    {
+      "name": "Vallejo",
+      "state": "CA",
+      "fullName": "Vallejo, CA"
+    },
+    {
+      "name": "Victorville",
+      "state": "CA",
+      "fullName": "Victorville, CA"
+    },
+    {
+      "name": "El Monte",
+      "state": "CA",
+      "fullName": "El Monte, CA"
+    },
+    {
+      "name": "Berkeley",
+      "state": "CA",
+      "fullName": "Berkeley, CA"
+    },
+    {
+      "name": "Fairfield",
+      "state": "CA",
+      "fullName": "Fairfield, CA"
+    },
+    {
+      "name": "Seattle",
+      "state": "WA",
+      "fullName": "Seattle, WA"
+    },
+    {
+      "name": "Spokane",
+      "state": "WA",
+      "fullName": "Spokane, WA"
+    },
+    {
+      "name": "Tacoma",
+      "state": "WA",
+      "fullName": "Tacoma, WA"
+    },
+    {
+      "name": "Vancouver",
+      "state": "WA",
+      "fullName": "Vancouver, WA"
+    },
+    {
+      "name": "Bellevue",
+      "state": "WA",
+      "fullName": "Bellevue, WA"
+    },
+    {
+      "name": "Kent",
+      "state": "WA",
+      "fullName": "Kent, WA"
+    },
+    {
+      "name": "Everett",
+      "state": "WA",
+      "fullName": "Everett, WA"
+    },
+    {
+      "name": "Renton",
+      "state": "WA",
+      "fullName": "Renton, WA"
+    },
+    {
+      "name": "Yakima",
+      "state": "WA",
+      "fullName": "Yakima, WA"
+    },
+    {
+      "name": "Spokane Valley",
+      "state": "WA",
+      "fullName": "Spokane Valley, WA"
+    },
+    {
+      "name": "Federal Way",
+      "state": "WA",
+      "fullName": "Federal Way, WA"
+    },
+    {
+      "name": "Bellingham",
+      "state": "WA",
+      "fullName": "Bellingham, WA"
+    },
+    {
+      "name": "Kennewick",
+      "state": "WA",
+      "fullName": "Kennewick, WA"
+    },
+    {
+      "name": "Auburn",
+      "state": "WA",
+      "fullName": "Auburn, WA"
+    },
+    {
+      "name": "Pasco",
+      "state": "WA",
+      "fullName": "Pasco, WA"
+    },
+    {
+      "name": "Marysville",
+      "state": "WA",
+      "fullName": "Marysville, WA"
+    },
+    {
+      "name": "Lakewood",
+      "state": "WA",
+      "fullName": "Lakewood, WA"
+    },
+    {
+      "name": "Redmond",
+      "state": "WA",
+      "fullName": "Redmond, WA"
+    },
+    {
+      "name": "Shoreline",
+      "state": "WA",
+      "fullName": "Shoreline, WA"
+    },
+    {
+      "name": "Richland",
+      "state": "WA",
+      "fullName": "Richland, WA"
+    },
+    {
+      "name": "Kirkland",
+      "state": "WA",
+      "fullName": "Kirkland, WA"
+    },
+    {
+      "name": "Sammamish",
+      "state": "WA",
+      "fullName": "Sammamish, WA"
+    },
+    {
+      "name": "Olympia",
+      "state": "WA",
+      "fullName": "Olympia, WA"
+    },
+    {
+      "name": "Lacey",
+      "state": "WA",
+      "fullName": "Lacey, WA"
+    },
+    {
+      "name": "Edmonds",
+      "state": "WA",
+      "fullName": "Edmonds, WA"
+    },
+    {
+      "name": "Bremerton",
+      "state": "WA",
+      "fullName": "Bremerton, WA"
+    },
+    {
+      "name": "Puyallup",
+      "state": "WA",
+      "fullName": "Puyallup, WA"
+    },
+    {
+      "name": "Issaquah",
+      "state": "WA",
+      "fullName": "Issaquah, WA"
+    },
+    {
+      "name": "Wenatchee",
+      "state": "WA",
+      "fullName": "Wenatchee, WA"
+    },
+    {
+      "name": "Walla Walla",
+      "state": "WA",
+      "fullName": "Walla Walla, WA"
+    },
+    {
+      "name": "Pullman",
+      "state": "WA",
+      "fullName": "Pullman, WA"
+    },
+    {
+      "name": "Ellensburg",
+      "state": "WA",
+      "fullName": "Ellensburg, WA"
+    },
+    {
+      "name": "Cheney",
+      "state": "WA",
+      "fullName": "Cheney, WA"
+    },
+    {
+      "name": "Port Angeles",
+      "state": "WA",
+      "fullName": "Port Angeles, WA"
+    },
+    {
+      "name": "Sequim",
+      "state": "WA",
+      "fullName": "Sequim, WA"
+    },
+    {
+      "name": "Port Townsend",
+      "state": "WA",
+      "fullName": "Port Townsend, WA"
+    },
+    {
+      "name": "Anacortes",
+      "state": "WA",
+      "fullName": "Anacortes, WA"
+    },
+    {
+      "name": "Mount Vernon",
+      "state": "WA",
+      "fullName": "Mount Vernon, WA"
+    },
+    {
+      "name": "Burlington",
+      "state": "WA",
+      "fullName": "Burlington, WA"
+    },
+    {
+      "name": "Sedro-Woolley",
+      "state": "WA",
+      "fullName": "Sedro-Woolley, WA"
+    },
+    {
+      "name": "Arlington",
+      "state": "WA",
+      "fullName": "Arlington, WA"
+    },
+    {
+      "name": "Monroe",
+      "state": "WA",
+      "fullName": "Monroe, WA"
+    },
+    {
+      "name": "Snohomish",
+      "state": "WA",
+      "fullName": "Snohomish, WA"
+    },
+    {
+      "name": "Granite Falls",
+      "state": "WA",
+      "fullName": "Granite Falls, WA"
+    },
+    {
+      "name": "Stanwood",
+      "state": "WA",
+      "fullName": "Stanwood, WA"
+    },
+    {
+      "name": "Camano Island",
+      "state": "WA",
+      "fullName": "Camano Island, WA"
+    },
+    {
+      "name": "Whidbey Island",
+      "state": "WA",
+      "fullName": "Whidbey Island, WA"
+    },
+    {
+      "name": "Oak Harbor",
+      "state": "WA",
+      "fullName": "Oak Harbor, WA"
+    },
+    {
+      "name": "Coupeville",
+      "state": "WA",
+      "fullName": "Coupeville, WA"
+    },
+    {
+      "name": "Langley",
+      "state": "WA",
+      "fullName": "Langley, WA"
+    },
+    {
+      "name": "Freeland",
+      "state": "WA",
+      "fullName": "Freeland, WA"
+    },
+    {
+      "name": "Clinton",
+      "state": "WA",
+      "fullName": "Clinton, WA"
+    },
+    {
+      "name": "Mukilteo",
+      "state": "WA",
+      "fullName": "Mukilteo, WA"
+    },
+    {
+      "name": "Lynnwood",
+      "state": "WA",
+      "fullName": "Lynnwood, WA"
+    },
+    {
+      "name": "Mountlake Terrace",
+      "state": "WA",
+      "fullName": "Mountlake Terrace, WA"
+    },
+    {
+      "name": "Bothell",
+      "state": "WA",
+      "fullName": "Bothell, WA"
+    },
+    {
+      "name": "Woodinville",
+      "state": "WA",
+      "fullName": "Woodinville, WA"
+    },
+    {
+      "name": "Duvall",
+      "state": "WA",
+      "fullName": "Duvall, WA"
+    },
+    {
+      "name": "Carnation",
+      "state": "WA",
+      "fullName": "Carnation, WA"
+    },
+    {
+      "name": "Fall City",
+      "state": "WA",
+      "fullName": "Fall City, WA"
+    },
+    {
+      "name": "Snoqualmie",
+      "state": "WA",
+      "fullName": "Snoqualmie, WA"
+    },
+    {
+      "name": "North Bend",
+      "state": "WA",
+      "fullName": "North Bend, WA"
+    },
+    {
+      "name": "Maple Valley",
+      "state": "WA",
+      "fullName": "Maple Valley, WA"
+    },
+    {
+      "name": "Covington",
+      "state": "WA",
+      "fullName": "Covington, WA"
+    },
+    {
+      "name": "Black Diamond",
+      "state": "WA",
+      "fullName": "Black Diamond, WA"
+    },
+    {
+      "name": "Enumclaw",
+      "state": "WA",
+      "fullName": "Enumclaw, WA"
+    },
+    {
+      "name": "Buckley",
+      "state": "WA",
+      "fullName": "Buckley, WA"
+    },
+    {
+      "name": "Bonney Lake",
+      "state": "WA",
+      "fullName": "Bonney Lake, WA"
+    },
+    {
+      "name": "Sumner",
+      "state": "WA",
+      "fullName": "Sumner, WA"
+    },
+    {
+      "name": "Orting",
+      "state": "WA",
+      "fullName": "Orting, WA"
+    },
+    {
+      "name": "Graham",
+      "state": "WA",
+      "fullName": "Graham, WA"
+    },
+    {
+      "name": "Spanaway",
+      "state": "WA",
+      "fullName": "Spanaway, WA"
+    },
+    {
+      "name": "Parkland",
+      "state": "WA",
+      "fullName": "Parkland, WA"
+    },
+    {
+      "name": "Steilacoom",
+      "state": "WA",
+      "fullName": "Steilacoom, WA"
+    },
+    {
+      "name": "DuPont",
+      "state": "WA",
+      "fullName": "DuPont, WA"
+    },
+    {
+      "name": "Lacey",
+      "state": "WA",
+      "fullName": "Lacey, WA"
+    },
+    {
+      "name": "Tumwater",
+      "state": "WA",
+      "fullName": "Tumwater, WA"
+    },
+    {
+      "name": "Yelm",
+      "state": "WA",
+      "fullName": "Yelm, WA"
+    },
+    {
+      "name": "Tenino",
+      "state": "WA",
+      "fullName": "Tenino, WA"
+    },
+    {
+      "name": "Rochester",
+      "state": "WA",
+      "fullName": "Rochester, WA"
+    },
+    {
+      "name": "Centralia",
+      "state": "WA",
+      "fullName": "Centralia, WA"
+    },
+    {
+      "name": "Chehalis",
+      "state": "WA",
+      "fullName": "Chehalis, WA"
+    },
+    {
+      "name": "Morton",
+      "state": "WA",
+      "fullName": "Morton, WA"
+    },
+    {
+      "name": "Packwood",
+      "state": "WA",
+      "fullName": "Packwood, WA"
+    },
+    {
+      "name": "Randle",
+      "state": "WA",
+      "fullName": "Randle, WA"
+    },
+    {
+      "name": "Mossyrock",
+      "state": "WA",
+      "fullName": "Mossyrock, WA"
+    },
+    {
+      "name": "Mineral",
+      "state": "WA",
+      "fullName": "Mineral, WA"
+    },
+    {
+      "name": "Eatonville",
+      "state": "WA",
+      "fullName": "Eatonville, WA"
+    },
+    {
+      "name": "Roy",
+      "state": "WA",
+      "fullName": "Roy, WA"
+    },
+    {
+      "name": "McChord AFB",
+      "state": "WA",
+      "fullName": "McChord AFB, WA"
+    },
+    {
+      "name": "Fort Lewis",
+      "state": "WA",
+      "fullName": "Fort Lewis, WA"
+    },
+    {
+      "name": "Joint Base Lewis-McChord",
+      "state": "WA",
+      "fullName": "Joint Base Lewis-McChord, WA"
+    },
+    {
+      "name": "New York",
+      "state": "NY",
+      "fullName": "New York, NY"
+    },
+    {
+      "name": "Buffalo",
+      "state": "NY",
+      "fullName": "Buffalo, NY"
+    },
+    {
+      "name": "Rochester",
+      "state": "NY",
+      "fullName": "Rochester, NY"
+    },
+    {
+      "name": "Syracuse",
+      "state": "NY",
+      "fullName": "Syracuse, NY"
+    },
+    {
+      "name": "Albany",
+      "state": "NY",
+      "fullName": "Albany, NY"
+    },
+    {
+      "name": "Chicago",
+      "state": "IL",
+      "fullName": "Chicago, IL"
+    },
+    {
+      "name": "Springfield",
+      "state": "IL",
+      "fullName": "Springfield, IL"
+    },
+    {
+      "name": "Rockford",
+      "state": "IL",
+      "fullName": "Rockford, IL"
+    },
+    {
+      "name": "Aurora",
+      "state": "IL",
+      "fullName": "Aurora, IL"
+    },
+    {
+      "name": "Naperville",
+      "state": "IL",
+      "fullName": "Naperville, IL"
+    },
+    {
+      "name": "Boston",
+      "state": "MA",
+      "fullName": "Boston, MA"
+    },
+    {
+      "name": "Worcester",
+      "state": "MA",
+      "fullName": "Worcester, MA"
+    },
+    {
+      "name": "Springfield",
+      "state": "MA",
+      "fullName": "Springfield, MA"
+    },
+    {
+      "name": "Cambridge",
+      "state": "MA",
+      "fullName": "Cambridge, MA"
+    },
+    {
+      "name": "Lowell",
+      "state": "MA",
+      "fullName": "Lowell, MA"
+    },
+    {
+      "name": "Austin",
+      "state": "TX",
+      "fullName": "Austin, TX"
+    },
+    {
+      "name": "Houston",
+      "state": "TX",
+      "fullName": "Houston, TX"
+    },
+    {
+      "name": "Dallas",
+      "state": "TX",
+      "fullName": "Dallas, TX"
+    },
+    {
+      "name": "San Antonio",
+      "state": "TX",
+      "fullName": "San Antonio, TX"
+    },
+    {
+      "name": "Fort Worth",
+      "state": "TX",
+      "fullName": "Fort Worth, TX"
+    },
+    {
+      "name": "Portland",
+      "state": "OR",
+      "fullName": "Portland, OR"
+    },
+    {
+      "name": "Salem",
+      "state": "OR",
+      "fullName": "Salem, OR"
+    },
+    {
+      "name": "Eugene",
+      "state": "OR",
+      "fullName": "Eugene, OR"
+    },
+    {
+      "name": "Gresham",
+      "state": "OR",
+      "fullName": "Gresham, OR"
+    },
+    {
+      "name": "Hillsboro",
+      "state": "OR",
+      "fullName": "Hillsboro, OR"
+    },
+    {
+      "name": "Denver",
+      "state": "CO",
+      "fullName": "Denver, CO"
+    },
+    {
+      "name": "Colorado Springs",
+      "state": "CO",
+      "fullName": "Colorado Springs, CO"
+    },
+    {
+      "name": "Aurora",
+      "state": "CO",
+      "fullName": "Aurora, CO"
+    },
+    {
+      "name": "Fort Collins",
+      "state": "CO",
+      "fullName": "Fort Collins, CO"
+    },
+    {
+      "name": "Boulder",
+      "state": "CO",
+      "fullName": "Boulder, CO"
+    },
+    {
+      "name": "Miami",
+      "state": "FL",
+      "fullName": "Miami, FL"
+    },
+    {
+      "name": "Orlando",
+      "state": "FL",
+      "fullName": "Orlando, FL"
+    },
+    {
+      "name": "Tampa",
+      "state": "FL",
+      "fullName": "Tampa, FL"
+    },
+    {
+      "name": "Jacksonville",
+      "state": "FL",
+      "fullName": "Jacksonville, FL"
+    },
+    {
+      "name": "St. Petersburg",
+      "state": "FL",
+      "fullName": "St. Petersburg, FL"
+    },
+    {
+      "name": "Atlanta",
+      "state": "GA",
+      "fullName": "Atlanta, GA"
+    },
+    {
+      "name": "Augusta",
+      "state": "GA",
+      "fullName": "Augusta, GA"
+    },
+    {
+      "name": "Columbus",
+      "state": "GA",
+      "fullName": "Columbus, GA"
+    },
+    {
+      "name": "Savannah",
+      "state": "GA",
+      "fullName": "Savannah, GA"
+    },
+    {
+      "name": "Athens",
+      "state": "GA",
+      "fullName": "Athens, GA"
+    },
+    {
+      "name": "Phoenix",
+      "state": "AZ",
+      "fullName": "Phoenix, AZ"
+    },
+    {
+      "name": "Tucson",
+      "state": "AZ",
+      "fullName": "Tucson, AZ"
+    },
+    {
+      "name": "Mesa",
+      "state": "AZ",
+      "fullName": "Mesa, AZ"
+    },
+    {
+      "name": "Scottsdale",
+      "state": "AZ",
+      "fullName": "Scottsdale, AZ"
+    },
+    {
+      "name": "Tempe",
+      "state": "AZ",
+      "fullName": "Tempe, AZ"
+    },
+    {
+      "name": "Las Vegas",
+      "state": "NV",
+      "fullName": "Las Vegas, NV"
+    },
+    {
+      "name": "Reno",
+      "state": "NV",
+      "fullName": "Reno, NV"
+    },
+    {
+      "name": "Henderson",
+      "state": "NV",
+      "fullName": "Henderson, NV"
+    },
+    {
+      "name": "North Las Vegas",
+      "state": "NV",
+      "fullName": "North Las Vegas, NV"
+    },
+    {
+      "name": "Sparks",
+      "state": "NV",
+      "fullName": "Sparks, NV"
+    },
+    {
+      "name": "Portland",
+      "state": "ME",
+      "fullName": "Portland, ME"
+    },
+    {
+      "name": "Lewiston",
+      "state": "ME",
+      "fullName": "Lewiston, ME"
+    },
+    {
+      "name": "Bangor",
+      "state": "ME",
+      "fullName": "Bangor, ME"
+    },
+    {
+      "name": "South Portland",
+      "state": "ME",
+      "fullName": "South Portland, ME"
+    },
+    {
+      "name": "Auburn",
+      "state": "ME",
+      "fullName": "Auburn, ME"
+    },
+    {
+      "name": "Nashville",
+      "state": "TN",
+      "fullName": "Nashville, TN"
+    },
+    {
+      "name": "Memphis",
+      "state": "TN",
+      "fullName": "Memphis, TN"
+    },
+    {
+      "name": "Knoxville",
+      "state": "TN",
+      "fullName": "Knoxville, TN"
+    },
+    {
+      "name": "Chattanooga",
+      "state": "TN",
+      "fullName": "Chattanooga, TN"
+    },
+    {
+      "name": "Murfreesboro",
+      "state": "TN",
+      "fullName": "Murfreesboro, TN"
+    },
+    {
+      "name": "New Orleans",
+      "state": "LA",
+      "fullName": "New Orleans, LA"
+    },
+    {
+      "name": "Baton Rouge",
+      "state": "LA",
+      "fullName": "Baton Rouge, LA"
+    },
+    {
+      "name": "Shreveport",
+      "state": "LA",
+      "fullName": "Shreveport, LA"
+    },
+    {
+      "name": "Lafayette",
+      "state": "LA",
+      "fullName": "Lafayette, LA"
+    },
+    {
+      "name": "Lake Charles",
+      "state": "LA",
+      "fullName": "Lake Charles, LA"
+    }
+  ]
+} 

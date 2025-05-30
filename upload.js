@@ -22,7 +22,7 @@ router.post('/upload/avatar', upload.single('avatar'), (req, res) => {
 });
 
 // 多图上传（作品集）
-router.post('/upload/portfolio', upload.array('photos', 5), (req, res) => {
+router.post('/upload/portfolio', upload.array('photos', 20), (req, res) => {
   const urls = req.files.map(file => file.path);
   res.json({ urls });
 });
