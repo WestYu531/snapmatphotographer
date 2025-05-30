@@ -518,6 +518,80 @@
             Submit Registration
           </button>
         </div>
+
+        <!-- 用户协议部分 -->
+        <div class="mt-8 space-y-4">
+          <div class="flex items-start space-x-3">
+            <input type="checkbox" id="termsAgreement" class="mt-1 h-5 w-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500" required>
+            <label for="termsAgreement" class="text-sm text-gray-600">
+              I have read and agree to the 
+              <button type="button" onclick="toggleTerms()" class="text-orange-500 hover:text-orange-600 font-medium">
+                SnapMate Unified User Agreement
+              </button>
+            </label>
+          </div>
+
+          <!-- 协议内容（默认隐藏） -->
+          <div id="termsContent" class="hidden bg-gray-50 rounded-xl p-6 max-h-[500px] overflow-y-auto">
+            <h3 class="text-xl font-bold mb-4">SnapMate Unified User Agreement</h3>
+            <div class="prose prose-sm max-w-none">
+              <p>This Unified User Agreement ("Agreement") governs your use of the SnapMate platform ("SnapMate", "we", "us", or "our") operated by SnapMate LLC, a Washington State limited liability company. By accessing or using www.snapmatephoto.com ("Site"), you agree to be bound by this Agreement, which includes our Terms of Service, Privacy Policy, and Photographer Terms and Conditions. If you do not agree, do not use the platform.</p>
+
+              <h4 class="font-bold mt-4">1. Terms of Service</h4>
+              <h5 class="font-semibold">1.1 Platform Nature</h5>
+              <p>SnapMate is a marketplace platform that connects individuals seeking photography services ("Clients") with independent photographers ("Photographers"). SnapMate does not itself offer photography services and is not a party to contracts between users.</p>
+
+              <h5 class="font-semibold">1.2 Payment and Fees</h5>
+              <p>All payments are processed through third-party providers, primarily Stripe. Clients must pay in full at the time of booking. SnapMate holds the funds in escrow until session completion and then releases the payment to the Photographer, less applicable service fees.</p>
+
+              <h5 class="font-semibold">1.3 Refund Policy</h5>
+              <ul class="list-disc pl-5">
+                <li>No refund within 24 hours of the scheduled session</li>
+                <li>20% refund if canceled within 48 hours</li>
+                <li>40% refund if canceled within 72 hours</li>
+                <li>70% refund if canceled earlier</li>
+              </ul>
+
+              <h5 class="font-semibold">1.4 Cancellation by Photographers</h5>
+              <p>Photographers may cancel bookings but are subject to a fee equal to 30% of the total booking price, which may be deducted from future payouts.</p>
+
+              <h5 class="font-semibold">1.5 Disclaimer and Limitation of Liability</h5>
+              <p>SnapMate is a neutral platform and does not supervise, direct, or control the services provided by Photographers. We are not liable for the acts, omissions, or performance of any user. To the fullest extent permitted by law, SnapMate disclaims liability for any indirect, incidental, special, consequential, or punitive damages. Total liability to any user is limited to the amount paid by that user to SnapMate in the six months preceding the claim.</p>
+
+              <h5 class="font-semibold">1.6 Arbitration Clause</h5>
+              <p>You agree that any disputes arising from or relating to this Agreement or your use of the platform shall be resolved exclusively through binding arbitration in Washington State, and you waive the right to participate in any class-action proceeding.</p>
+
+              <h4 class="font-bold mt-4">2. Privacy Policy</h4>
+              <h5 class="font-semibold">2.1 Information We Collect</h5>
+              <p>We collect personal information including your name, email address, location, profile photos, uploaded photography content, and payment information. We also use cookies and third-party analytics tools such as Google APIs.</p>
+
+              <h5 class="font-semibold">2.2 Data Sharing</h5>
+              <p>We share information with service providers necessary for platform operation, such as Stripe (payments) and AWS (infrastructure). We do not sell your personal data to third parties.</p>
+
+              <h5 class="font-semibold">2.3 Account and Data Deletion</h5>
+              <p>You may request account or data deletion by contacting us at snapmate@snapmatephoto.com. We will permanently delete your account and personal data, except where retention is required by law.</p>
+
+              <h4 class="font-bold mt-4">3. Photographer Terms and Conditions</h4>
+              <h5 class="font-semibold">3.1 Independent Contractor Status</h5>
+              <p>Photographers are independent contractors and not employees, agents, or partners of SnapMate. Photographers are responsible for their own compliance with tax and labor regulations.</p>
+
+              <h5 class="font-semibold">3.2 Earnings and Payment</h5>
+              <p>Photographers may set their own rates. SnapMate will process payments via Stripe and deduct applicable service fees before remittance.</p>
+
+              <h5 class="font-semibold">3.3 Cancellation Policy</h5>
+              <p>If a Photographer cancels a confirmed booking, a 30% cancellation fee will be applied and deducted from their account or future payouts.</p>
+
+              <h5 class="font-semibold">3.4 Insurance and Dispute Resolution</h5>
+              <p>SnapMate does not provide insurance for users or Photographers. All disputes must be resolved directly between the involved parties. SnapMate does not mediate or intervene.</p>
+
+              <h5 class="font-semibold">3.5 Licensing of Photos</h5>
+              <p>Photographers retain full copyright over their work. By using the platform, Photographers grant SnapMate a non-exclusive, royalty-free, worldwide license to use uploaded or platform-generated photos for marketing and promotional purposes.</p>
+
+              <h4 class="font-bold mt-4">4. Contact Information</h4>
+              <p>If you have questions about this Agreement, contact us at snapmate@snapmatephoto.com.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -719,8 +793,8 @@ function createImagePreview(file, index, isCover = false) {
   const badge = document.createElement("div");
   badge.innerText = isCover ? "Cover Photo" : "Choose as Cover Photo";
   badge.className = isCover
-    ? "absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium"
-    : "absolute top-2 left-2 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 transform -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0";
+    ? "absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+    : "absolute top-2 left-2 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 transform -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg";
 
   wrapper.appendChild(img);
   wrapper.appendChild(badge);
@@ -884,11 +958,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// 注册提交逻辑
+// 添加协议切换功能
+function toggleTerms() {
+  const termsContent = document.getElementById('termsContent');
+  termsContent.classList.toggle('hidden');
+}
+
+// 修改注册提交逻辑，添加协议检查
 if (document.getElementById('submitRegisterBtn')) {
   document.getElementById('submitRegisterBtn').addEventListener('click', async function (e) {
     e.preventDefault();
-    // 1. 收集表单信息
+    
+    // 检查是否同意协议
+    const termsAgreement = document.getElementById('termsAgreement');
+    if (!termsAgreement.checked) {
+      alert('请阅读并同意用户协议');
+      return;
+    }
+    
+    // 原有的注册逻辑
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
