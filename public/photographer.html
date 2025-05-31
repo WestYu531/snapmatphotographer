@@ -51,6 +51,121 @@
                 position: static;
                 margin-top: 2rem;
             }
+            /* 新增移动端优化样式 */
+            .mobile-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .mobile-text {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            .mobile-heading {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+            .mobile-container {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: white;
+                z-index: 1000;
+                padding: 1rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+            .mobile-menu-item {
+                padding: 1rem;
+                border-bottom: 1px solid #eee;
+            }
+            .mobile-menu-close {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem;
+            }
+            .mobile-portfolio-item {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 4/3;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                max-height: 60vw;
+                min-height: 180px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            .mobile-portfolio-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+                display: block;
+            }
+            .mobile-portfolio-item:first-child {
+                aspect-ratio: 16/9;
+            }
+            .mobile-portfolio-item .image-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 1rem;
+                background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+                color: white;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                border-radius: 0 0 12px 12px;
+            }
+            .mobile-portfolio-item:hover .image-overlay {
+                opacity: 1;
+            }
+            #mobile-portfolio {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+            }
+            #mobile-portfolio-slider {
+                display: flex;
+                width: 100%;
+                transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+            }
+            #expertise-modules {
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 16px !important;
+                width: 100% !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                padding-bottom: 8px !important;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+            #expertise-modules > div {
+                min-width: 220px !important;
+                max-width: 80vw !important;
+                width: 220px !important;
+                scroll-snap-align: start;
+            }
+            #expertise-slider-wrapper {
+                overflow-x: visible !important;
+                position: static !important;
+            }
+            #expertise-arrow-left,
+            #expertise-arrow-right {
+                display: none !important;
+            }
         }
         .thumbnails-grid {
             display: grid;
@@ -96,6 +211,46 @@
         }
         .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 50; display: flex; align-items: center; justify-content: center; }
         .modal-content { background: #fff; border-radius: 1rem; padding: 2rem; min-width: 320px; max-width: 90vw; }
+        @media (max-width: 768px) {
+          #mobile-portfolio-outer, #mobile-portfolio, #mobile-portfolio-slider {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .mobile-portfolio-item {
+            width: 100% !important;
+            flex-shrink: 0;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 60vw;
+            min-height: 180px;
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+          .mobile-portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+          }
+          .mobile-portfolio-item .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 0 0 12px 12px;
+          }
+          .mobile-portfolio-item:hover .image-overlay {
+            opacity: 1;
+          }
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -117,17 +272,45 @@
     <!-- 主要内容（去除左侧个人信息栏） -->
     <main class="pt-16 sm:pt-20">
         <!-- 照片展示（Airbnb风格，左右各占一半，动态渲染，原始排版） -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-8 flex items-center justify-between">
-          <div class="grid grid-cols-2 gap-4 rounded-2xl overflow-hidden h-[420px] flex-1">
-            <!-- 左侧大图 -->
-            <div class="h-full" id="portfolio-main"></div>
-            <!-- 右侧四张小图 -->
-            <div class="grid grid-cols-2 grid-rows-2 gap-4 h-full" id="portfolio-thumbs" style="height:420px;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-8">
+          <!-- 桌面端布局 -->
+          <div class="hidden md:flex items-center justify-between">
+            <div class="grid grid-cols-2 gap-4 rounded-2xl overflow-hidden h-[420px] flex-1">
+              <!-- 左侧大图 -->
+              <div class="h-full" id="portfolio-main"></div>
+              <!-- 右侧四张小图 -->
+              <div class="grid grid-cols-2 grid-rows-2 gap-4 h-full" id="portfolio-thumbs" style="height:420px;"></div>
+            </div>
+            <div class="flex flex-col gap-2">
+              <button id="editPortfolioBtn" class="bg-white hover:bg-blue-100 text-blue-500 rounded-full p-2 shadow transition" title="Edit portfolio">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+              </button>
+            </div>
           </div>
-          <div class="flex flex-col gap-2">
-            <button id="editPortfolioBtn" class="bg-white hover:bg-blue-100 text-blue-500 rounded-full p-2 shadow transition" title="Edit portfolio">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
-            </button>
+          
+          <!-- 移动端布局 -->
+          <div class="md:hidden">
+            <div class="flex justify-end mb-2">
+              <button id="editPortfolioBtnMobile" class="bg-white hover:bg-blue-100 text-blue-500 rounded-full p-2 shadow transition" title="Edit portfolio">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h2v2h-2v-2z"/></svg>
+              </button>
+            </div>
+            <div id="mobile-portfolio-outer" style="overflow:hidden;width:100vw;margin-left:calc(-50vw + 50%);position:relative;">
+              <div id="mobile-portfolio" style="width:100vw;">
+                <div id="mobile-portfolio-slider" class="flex transition-transform duration-300 ease-in-out"></div>
+              </div>
+              <!-- 左右滑动按钮 -->
+              <button id="prevPhoto" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button id="nextPhoto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <!-- 照片计数器 -->
+              <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                <span id="currentPhoto">1</span> / <span id="totalPhotos">1</span>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -501,11 +684,11 @@
         }
       };
 
-      // 渲染作品集（原始排版，右侧2x2宫格始终不变）
+      // 修改作品集渲染逻辑
       if (data.portfolio && data.portfolio.length > 0) {
-        // 左侧大图
+        // 桌面端渲染
         document.getElementById('portfolio-main').innerHTML = `<img src='${data.portfolio[0]}' class='w-full h-full object-cover' alt='Main Photo' data-lightbox='gallery' style='aspect-ratio:1/1;min-height:0;' />`;
-        // 右侧4张小图（不足补空，全部正方形填满格子）
+        
         let thumbs = '';
         for (let i = 1; i < 5; i++) {
           if (data.portfolio[i]) {
@@ -527,6 +710,47 @@
           }
         }
         document.getElementById('portfolio-thumbs').innerHTML = thumbs;
+
+        // 移动端渲染
+        const totalPhotos = data.portfolio.length;
+        const mobilePortfolio = document.getElementById('mobile-portfolio');
+        const prevBtn = document.getElementById('prevPhoto');
+        const nextBtn = document.getElementById('nextPhoto');
+        const currentPhotoSpan = document.getElementById('currentPhoto');
+        document.getElementById('totalPhotos').textContent = totalPhotos;
+        let currentIndex = 0;
+
+        function renderCurrentPhoto() {
+          const url = data.portfolio[currentIndex];
+          mobilePortfolio.innerHTML = `
+            <div class="mobile-portfolio-item">
+              <a href="${url}" data-lightbox="gallery-mobile">
+                <img src="${url}" alt="Gallery ${currentIndex + 1}" class="w-full h-full object-cover">
+                <div class="image-overlay">
+                  <span class="text-sm">Photo ${currentIndex + 1}</span>
+                </div>
+              </a>
+            </div>
+          `;
+          currentPhotoSpan.textContent = currentIndex + 1;
+          prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+          nextBtn.style.opacity = currentIndex === totalPhotos - 1 ? '0.5' : '1';
+        }
+
+        prevBtn.onclick = () => {
+          if (currentIndex > 0) {
+            currentIndex--;
+            renderCurrentPhoto();
+          }
+        };
+        nextBtn.onclick = () => {
+          if (currentIndex < totalPhotos - 1) {
+            currentIndex++;
+            renderCurrentPhoto();
+          }
+        };
+
+        renderCurrentPhoto();
       }
 
       // expertise类型映射
@@ -1146,6 +1370,12 @@
         } else {
           alert('Save failed');
         }
+      };
+
+      // 移动端编辑按钮事件绑定
+      document.getElementById('editPortfolioBtnMobile').onclick = function() {
+        document.getElementById('editPortfolioModal').classList.remove('hidden');
+        renderPortfolioEditList();
       };
     });
     </script>
